@@ -139,12 +139,20 @@ class character_sprites:
     def attack(self, platform):
         character_sprite.background(platform)
 
+        if (value.attack_value<len(sprite.rrunning_sprite)-1):
+            value.attack_value+=1
+
+        else:
+            value.attack_value = 0
+
+
         if value.last_key=='Right':
             image = sprite.rattack_sprite[value.attack_value]
         else:
             image = sprite.lattack_sprite[value.attack_value]
 
 
+        timer.attack_timer = time.time()
         attack.group.empty()
         attack.group.add(character(image, x_move=value.x_move - 60, y_move=value.y_move - 30))
         attack.group.draw(platform)
