@@ -26,27 +26,12 @@ class value_of_characters():
         self.y_move = (900-100)
 
 
-        self.last_key = "Right"
-        self.stand_ = False
-
-
+        self.last_key = "Right" #using don't delete
         self.running_value = 0
         self.attack_value = 0
-
-
-
-
-        self.jump = False
-        self.down = False
-
-
-        self.ground_value = False
+        self.jump = False # using dont`t delete
         self.standed  = False
-
-
-        self.valuee = 0
-
-
+        self.upClicked = False
 
 class sprites:
 
@@ -126,6 +111,12 @@ class character_sprites:
     def x_moveing(self,platform):
         character_sprite.background(platform)
 
+        if (value.running_value<len(sprite.rrunning_sprite)-1):
+            value.running_value+=1
+        else:
+            value.running_value = 0
+
+
         if (value.last_key == 'Right'):
             image = sprite.rrunning_sprite[value.running_value]
 
@@ -173,8 +164,11 @@ class character_sprites:
 
     def tile1_UpChecking(self):
 
+
+
         if (((value.x_move>=290) and (value.x_move<300+340)) or ((value.x_move>300+400+10) and (value.x_move<700+300)))\
                 and (value.y_move<=320+200 and value.y_move>259+200):
+
             return True
 
         return False
@@ -184,6 +178,7 @@ class character_sprites:
         if (((value.x_move >= 330) and (value.x_move < 300 + 350-10)) or (value.x_move>=300+400 and value.x_move<(700+350-10)))\
                 and (value.y_move==400):
 
+            print('mein khada hogaya')
             value.standed = True
 
         else:
