@@ -562,14 +562,15 @@ pivot = pd.DataFrame({'day':['s','m','f','w','f'],
 
 
 titanic = sea.load_dataset('titanic')
-train = sea.load_dataset('train')
-test = sea.load_dataset('test')
 
 
+array = np.arange((titanic.age.size))
 
+print(pd.Series(array).mean()/pd.Series(array).std())
+sea.displot(x=titanic.age,y=array,kind='kde',fill=True,color='white')
+sea.displot(x=titanic.age,y=array,kind='hist')
 
-
-
+plt.show()
 #
 # da = (pd.crosstab(index=titanic.age,columns=titanic.sex))
 # print(da)
