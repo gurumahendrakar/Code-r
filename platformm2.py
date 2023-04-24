@@ -32,6 +32,7 @@ class value_of_characters():
         self.jump = False # using dont`t delete
         self.standed  = False
         self.upClicked = False
+        self.down = False
 
 class sprites:
 
@@ -180,7 +181,7 @@ class character_sprites:
 
 
 
-        if (((value.x_move>=290) and (value.x_move<300+340)) or ((value.x_move>300+400+10) and (value.x_move<700+300)))\
+        if (((value.x_move>=290) and (value.x_move<300+340)) or ((value.x_move>300+400+10) and (value.x_move<700+300+50+10)))\
                 and (value.y_move<=320+200 and value.y_move>259+200):
 
             return True

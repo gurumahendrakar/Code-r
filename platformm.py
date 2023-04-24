@@ -24,7 +24,7 @@ class platfrom1:
 
         if (time.time() - timer.runnT) > 0.1803434343434:
             character_sprite.stand(self.window)
-            value.upClicked = False
+
 
 
 
@@ -51,6 +51,8 @@ class platfrom1:
                         value.last_key = "Left"
                         timer.runnT = time.time()
                         value.x_move -= 20
+
+                        character_sprite.tile1_StandChecking()
                         character_sprite.x_moveing(self.window)
 
 
@@ -63,31 +65,40 @@ class platfrom1:
                         character_sprite.x_moveing(self.window)
                         value.x_move+=20
 
+
+
                     elif (event.key==pygame.K_UP):
-
-
-                        value.upClicked = 'UP'
-                        timer.jump_timer = time.time()
-                        value.jump = True
+                        if (time.time() - timer.up_timer) > 0.830534353433:
+                            value.upClicked = 'UP'
+                            timer.jump_timer = time.time()
+                            timer.up_timer = time.time()
+                            value.jump = True
 
 
 
             if (value.upClicked):
-                if (value.jump) and (time.time()-timer.jump_timer)<0.23053435343:
+                if (value.jump) and (time.time()-timer.jump_timer)<0.0083053435343:
 
+                    if not(character_sprite.tile1_UpChecking()):
+                            value.y_move-=100
 
-                    value.y_move-=100
                     character_sprite.jump_down_moveing(self.window)
 
 
                 else:
+                    value.down = True
                     character_sprite.tile1_StandChecking()
 
                     if value.y_move!=800 and not(value.standed):
-                        value.y_move+=100
+
+                        if (value.down) and (time.time()-timer.runnT)<0.234343434342:
+                            pass
+                        else:
+                            value.y_move+=50
                         character_sprite.jump_down_moveing(self.window)
 
                     elif (value.y_move==800):
+                        value.down = False
                         if (time.time()-timer.runnT)> 0.1803434343434:
                             character_sprite.stand(self.window)
 
