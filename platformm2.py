@@ -98,7 +98,11 @@ class character_sprites:
 
 
 
-        platform.blit(stand,(value.x_move-60,value.y_move-30))
+        if value.last_key=="Left":
+            platform.blit(stand,(value.x_move-90,value.y_move-30))
+
+        else:
+            platform.blit(stand, (value.x_move - 60, value.y_move - 30))
 
 
 
@@ -123,7 +127,11 @@ class character_sprites:
         elif (value.last_key == 'Left'):
             image = image = sprite.lrunning_sprite[value.running_value]
 
-        platform.blit(pygame.image.load(image),(value.x_move-60,value.y_move-30))
+        if (value.last_key=='Left'):
+            platform.blit(pygame.image.load(image),(value.x_move-90,value.y_move-30))
+
+        else:
+            platform.blit(pygame.image.load(image), (value.x_move - 60, value.y_move - 30))
 
 
 
@@ -156,7 +164,13 @@ class character_sprites:
 
 
         jump.group.empty()
-        jump.group.add(character(image,value.x_move - 60, value.y_move - 30))
+
+        if (value.last_key=="Left"):
+            jump.group.add(character(image,value.x_move - 90, value.y_move - 30))
+        else:
+            jump.group.add(character(image, value.x_move - 60, value.y_move - 30))
+
+
         jump.group.draw(platform)
         jump.group.update()
 
@@ -175,10 +189,8 @@ class character_sprites:
 
 
     def tile1_StandChecking(self):
-        if (((value.x_move >= 330) and (value.x_move < 300 + 350-10)) or (value.x_move>=300+400 and value.x_move<(700+350-10)))\
+        if (((value.x_move >= 290) and (value.x_move < 300 + 350+10)) or (value.x_move>=300+400 and value.x_move<(700+350+10)))\
                 and (value.y_move==400):
-
-            print('mein khada hogaya')
             value.standed = True
 
         else:

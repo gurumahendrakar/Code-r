@@ -11,28 +11,27 @@ class platfrom1:
     def __init__(self,width,height):
         self.window = pygame.display.set_mode((width,height))
         pygame.display.set_caption('RogueXFighter')
-
         self.tile = pygame.image.load(r"S:\platform\Rogue\tiles\tile.png")
+
 
     def sprite_timeing(self):
 
         stand_or_not = character_sprite.tile1_StandChecking()
 
-        if not (stand_or_not):
+        if  (stand_or_not):
             value.upClicked = True
 
-        # Stand Timer
-
-        #0.1803434343434
 
         if (time.time() - timer.runnT) > 0.1803434343434:
             character_sprite.stand(self.window)
+            value.upClicked = False
 
 
 
     def mainloop(self):
         character_sprite.icon()
         character_sprite.background(self.window)
+        character_sprite.stand(self.window)
 
 
 
@@ -48,20 +47,21 @@ class platfrom1:
                 if event.type==pygame.KEYDOWN:
 
                     if (event.key==pygame.K_LEFT):
-                        value.x_move-=20
-
 
                         value.last_key = "Left"
                         timer.runnT = time.time()
+                        value.x_move -= 20
                         character_sprite.x_moveing(self.window)
 
+
                     elif (event.key==pygame.K_RIGHT):
-                        value.x_move+=20
+
 
 
                         value.last_key = "Right"
                         timer.runnT = time.time()
                         character_sprite.x_moveing(self.window)
+                        value.x_move+=20
 
                     elif (event.key==pygame.K_UP):
 
@@ -74,18 +74,26 @@ class platfrom1:
 
             if (value.upClicked):
                 if (value.jump) and (time.time()-timer.jump_timer)<0.23053435343:
+
+
                     value.y_move-=100
                     character_sprite.jump_down_moveing(self.window)
 
+
                 else:
                     character_sprite.tile1_StandChecking()
+
                     if value.y_move!=800 and not(value.standed):
                         value.y_move+=100
                         character_sprite.jump_down_moveing(self.window)
+
+                    elif (value.y_move==800):
+                        if (time.time()-timer.runnT)> 0.1803434343434:
+                            character_sprite.stand(self.window)
+
                     else:
+                        plat.sprite_timeing()
                         value.jump = False
-                        value.upClicked  = False
-                        character_sprite.stand(self.window)
 
 
 
