@@ -26,7 +26,11 @@ class platfrom1:
             character_sprite.stand(self.window)
 
 
+    def timeing_of_character(self):
 
+
+        if (time.time()-timer.attack_timer)>0.18034334343434:
+            character_sprite.stand(self.window)
 
     def mainloop(self):
         character_sprite.icon()
@@ -67,8 +71,9 @@ class platfrom1:
 
 
 
+
                     elif (event.key==pygame.K_UP):
-                        if (time.time() - timer.up_timer) > 0.830534353433:
+                        if not (value.down):
                             value.upClicked = 'UP'
                             timer.jump_timer = time.time()
                             timer.up_timer = time.time()
@@ -76,11 +81,19 @@ class platfrom1:
 
 
 
+                    elif (event.unicode=='a'):
+                        character_sprite.attack(self.window)
+
+
+
+
+            # full up down panel handleing brother
             if (value.upClicked):
-                if (value.jump) and (time.time()-timer.jump_timer)<0.0083053435343:
+                if (value.jump) and (time.time()-timer.jump_timer)<0.2083053435343*2:
+                    value.down = True
 
                     if not(character_sprite.tile1_UpChecking()):
-                            value.y_move-=100
+                            value.y_move-=50
 
                     character_sprite.jump_down_moveing(self.window)
 
@@ -90,27 +103,26 @@ class platfrom1:
                     character_sprite.tile1_StandChecking()
 
                     if value.y_move!=800 and not(value.standed):
-
-                        if (value.down) and (time.time()-timer.runnT)<0.234343434342:
-                            pass
-                        else:
-                            value.y_move+=50
+                        value.y_move+=50
                         character_sprite.jump_down_moveing(self.window)
 
                     elif (value.y_move==800):
                         value.down = False
+
+
                         value.upClicked = False
+
 
                         if (time.time()-timer.runnT)> 0.1803434343434:
                             character_sprite.stand(self.window)
+                            value.upClicked = False
 
                     else:
-                        plat.sprite_timeing()
                         value.jump = False
 
 
 
-
+            plat.timeing_of_character()
             self.window.blit(self.tile,(300,485))
             self.window.blit(self.tile,(700,485))
             pygame.time.Clock().tick(30)
