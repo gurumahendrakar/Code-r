@@ -152,6 +152,10 @@ class platfrom1:
                         value.jump_finished = False
                         value.down = False
 
+
+                        value.upClicked = False
+
+
                         if (time.time()-timer.runnT)> 0.1803434343434:
                             character_sprite.stand(self.window)
                             value.upClicked = False
