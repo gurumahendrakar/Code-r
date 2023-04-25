@@ -19,6 +19,9 @@ class timeing:
         self.up_timer = False
 
 
+        self.jump_right_timer = False
+
+
 class value_of_characters():
     def __init__(self):
 
@@ -33,6 +36,14 @@ class value_of_characters():
         self.standed  = False
         self.upClicked = False
         self.down = False
+
+
+
+        self.attack_finished = False
+        self.jump_finished = False
+
+
+        self.jump_right = False
 
 class sprites:
 
