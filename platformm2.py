@@ -36,7 +36,9 @@ class value_of_characters():
 
 
         self.jump = False
-        self.value = False
+
+        self.upping = False
+        self.downing = False
 
 class sprites:
 

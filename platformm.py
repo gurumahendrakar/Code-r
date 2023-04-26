@@ -21,9 +21,7 @@ class platfrom1:
            character_sprite.stand(self.window)
 
 
-    def stairs(self):
-        self.window.blit(self.tile, (300, 485))
-        self.window.blit(self.tile, (700, 485))
+  
 
 
 
@@ -31,24 +29,60 @@ class platfrom1:
 
         if (value.jump):
             if (time.time() - timer.jump_timer) < 0.6000000000000/2:
-                value.down = True
+                value.downing = True
                 character_sprite.y_moveing(self.window)
 
 
             else:
-                if (value.down):
-                    if (value.y_move!=560):
 
-                        value.y_move+=80
-                        character_sprite.y_downing(self.window)
-
-                    else:
-                        character_sprite.stand(self.window)
-                        value.jump = False
+                value.downing = False
+                if (value.y_move!=560):
 
 
+                    value.y_move+=80
+                    character_sprite.y_downing(self.window)
+
+                else:
+                    character_sprite.stand(self.window)
+                    value.jump = False
 
 
+
+    def main_content(self):
+        pygame.time.delay(70)
+
+        for event in pygame.event.get():
+
+            if event.type == pygame.QUIT:
+                pygame.quit()
+
+            if event.type == pygame.KEYDOWN:
+
+                if (event.key == pygame.K_LEFT):
+
+                    value.last_key = "Left"
+                    timer.runnT = time.time()
+                    character_sprite.x_moveing(self.window)
+
+
+                elif (event.key == pygame.K_RIGHT):
+
+                    value.last_key = "Right"
+
+                    if not (value.downing):
+                        timer.runnT = time.time()
+                        character_sprite.x_moveing(self.window)
+
+
+                elif (event.key == pygame.K_UP):
+
+                    value.jump = True
+                    timer.jump_timer = time.time()
+
+
+                elif (event.key == pygame.K_DOWN):
+
+                    value.y_move += 100
 
     def mainloop(self):
         character_sprite.icon()
@@ -56,46 +90,13 @@ class platfrom1:
 
 
         while True:
-            pygame.time.delay(70)
 
-            for event in pygame.event.get():
-
-                if event.type==pygame.QUIT:
-                    pygame.quit()
-
-
-                if event.type==pygame.KEYDOWN:
-
-                    if (event.key==pygame.K_LEFT):
-
-                        value.last_key = "Left"
-                        timer.runnT = time.time()
-                        character_sprite.x_moveing(self.window)
-
-                    elif (event.key==pygame.K_RIGHT):
-
-                        value.last_key = "Right"
-                        timer.runnT = time.time()
-
-                        if (value.down):
-                            character_sprite.x_moveing(self.window)
-
-
-                    elif (event.key==pygame.K_UP):
-                        value.jump = True
-                        timer.jump_timer = time.time()
-
-
-                    elif (event.key==pygame.K_DOWN):
-                        value.y_move+=100
-
-
-
+            platfrom1.main_content()
 
             if (value.jump):
                 platfrom1.jump(self.window)
 
-            print(value.x_move,value.y_move)
+
             platfrom1.AfterRunStand()
             pygame.time.Clock().tick(30)
             pygame.display.flip()
