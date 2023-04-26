@@ -560,17 +560,24 @@ pivot = pd.DataFrame({'day':['s','m','f','w','f'],
 
 
 
+so = np.arange(0,101)
 
+print(pd.Series(so).mean())
 titanic = sea.load_dataset('titanic')
 
+#
+# sea.kdeplot(
+#     x=titanic.age
+# )
 
-array = np.arange((titanic.age.size))
 
-print(pd.Series(array).mean()/pd.Series(array).std())
-sea.displot(x=titanic.age,y=array,kind='kde',fill=True,color='white')
-sea.displot(x=titanic.age,y=array,kind='hist')
+sea.kdeplot(
+    so=titanic.age
+)
 
-plt.show()
+
+# print(sea.histplot(
+#))
 #
 # da = (pd.crosstab(index=titanic.age,columns=titanic.sex))
 # print(da)
@@ -579,4 +586,4 @@ plt.show()
 # plt.xticks(rotation='vertical')
 # sea.barplot(x=da.index,y=da.male)
 #
-# plt.show()
+plt.show()

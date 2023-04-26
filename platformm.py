@@ -2,8 +2,8 @@ import time,os
 
 import matplotlib.pyplot as plt
 import pygame
-from platformm2 import value,sprite,run,timer\
-    ,character,character_sprite,attack
+from platformm2 import value,character_png,timer\
+    ,character,character_sprite
 pygame.init()
 
 
@@ -16,21 +16,36 @@ class platfrom1:
         self.tile = pygame.image.load(r"S:\platform\Rogue\tiles\tile.png")
 
 
-    def sprite_timeing(self):
-
-        stand_or_not = character_sprite.tile1_StandChecking()
-
-        if  (stand_or_not):
-            value.upClicked = True
+    def AfterRunStand(self):
+       if (time.time()-timer.runnT)>0.21353435343434434 and not (value.jump):
+           character_sprite.stand(self.window)
 
 
-        if value.attack_finished==True:
-            if (time.time()-timer.attack_timer)>0.180343434343434:
-                value.attack_finished = False
+    def stairs(self):
+        self.window.blit(self.tile, (300, 485))
+        self.window.blit(self.tile, (700, 485))
 
 
-        if (time.time() - timer.runnT) > 0.1803434343434 and value.jump==False and not value.attack_finished:
-            character_sprite.stand(self.window)
+
+    def jump(self,platform):
+
+        if (value.jump):
+            if (time.time() - timer.jump_timer) < 0.6000000000000/2:
+                value.down = True
+                character_sprite.y_moveing(self.window)
+
+
+            else:
+                if (value.down):
+                    if (value.y_move!=560):
+
+                        value.y_move+=80
+                        character_sprite.y_downing(self.window)
+
+                    else:
+                        character_sprite.stand(self.window)
+                        value.jump = False
+
 
 
 
@@ -38,8 +53,6 @@ class platfrom1:
     def mainloop(self):
         character_sprite.icon()
         character_sprite.background(self.window)
-        character_sprite.stand(self.window)
-
 
 
         while True:
@@ -56,123 +69,39 @@ class platfrom1:
                     if (event.key==pygame.K_LEFT):
 
                         value.last_key = "Left"
-                        value.jump_right = "Left"
-
-                        timer.jump_right_timer = time.time()
-
-
-                        if (value.jump_finished and value.upClicked) or (
-                                value.last_key == 'Left' and value.down == False):
-                            timer.runnT = time.time()
-                            value.x_move -= 20
-
-                            character_sprite.tile1_StandChecking()
-                            character_sprite.x_moveing(self.window)
-
-
+                        timer.runnT = time.time()
+                        character_sprite.x_moveing(self.window)
 
                     elif (event.key==pygame.K_RIGHT):
+
                         value.last_key = "Right"
-                        value.jump_right = "Right"
-                        timer.jump_right_timer = time.time()
+                        timer.runnT = time.time()
 
-
-                        if (value.jump_finished and value.upClicked) or (value.last_key=='Right' and value.down==False):
-                            timer.runnT = time.time()
+                        if (value.down):
                             character_sprite.x_moveing(self.window)
-                            value.x_move+=20
-
-
-
 
 
                     elif (event.key==pygame.K_UP):
-                        if not (value.down):
-                            value.upClicked = 'UP'
-                            timer.jump_timer = time.time()
-                            timer.up_timer = time.time()
-                            value.jump = True
+                        value.jump = True
+                        timer.jump_timer = time.time()
 
 
-
-                    elif (event.unicode=='a'):
-                        value.attack_finished = True
-                        timer.attack_timer = time.time()
-                        character_sprite.attack(self.window)
+                    elif (event.key==pygame.K_DOWN):
+                        value.y_move+=100
 
 
 
 
-            # full up down panel handleing brother
-            if (value.upClicked): # ye isliye liya hai ki loop continue na chale
+            if (value.jump):
+                platfrom1.jump(self.window)
 
-                if (value.jump) and (time.time()-timer.jump_timer)<0.2083053435343*2:
-                    value.down = True # up button click na ho jab updar jaa raha ho
-
-                    if (value.jump_right=='Right'):
-                        if (time.time()-timer.jump_right_timer)<0.93853435343434:
-                            value.x_move+=30
-                        else:
-                            value.jump_right = False
-
-
-                    elif value.jump_right=='Left':
-
-                        if (time.time()-timer.jump_right_timer)<0.93853435343434:
-                            value.x_move-=30
-                        else:
-                            value.jump_right = False
-
-
-                    if not(character_sprite.tile1_UpChecking()):
-                            value.y_move-=50
-
-                    character_sprite.jump_down_moveing(self.window)
-
-
-                else:
-                    value.jump_finished = True
-                    value.down = True
-                    character_sprite.tile1_StandChecking()
-
-                    if value.y_move!=800 and not(value.standed):
-
-
-                        value.y_move+=50
-
-                        if (time.time()-timer.attack_timer)<0.135343534335343434:
-                            character_sprite.attack(self.window)
-
-                        else:
-                            character_sprite.jump_down_moveing(self.window)
-
-
-
-                    elif (value.y_move==800):
-                        value.jump_finished = False
-                        value.down = False
-
-
-                        value.upClicked = False
-
-
-                        if (time.time()-timer.runnT)> 0.1803434343434:
-                            character_sprite.stand(self.window)
-                            value.upClicked = False
-                            value.jump = False
-
-
-
-
-
-            plat.sprite_timeing()
-            self.window.blit(self.tile,(300,485))
-            self.window.blit(self.tile,(700,485))
+            print(value.x_move,value.y_move)
+            platfrom1.AfterRunStand()
             pygame.time.Clock().tick(30)
             pygame.display.flip()
 
 
-plat = platfrom1(1200,900)
+platfrom1 = platfrom1(1200,640)
 
 if __name__=='__main__':
-    plat.mainloop()
+    platfrom1.mainloop()

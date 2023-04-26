@@ -3886,11 +3886,33 @@
 # print(id([1,2,3,4,5]))
 # print(id([1,2,3,4,5,6,2222]))
 
-a = ''
-b = []
-c = {1,2}
-d = ()
+1
+2,7
+3,8,12
+4,9,13,16
+5,10,14,17,19
+6,11,15,18,20,21
 
-
-
-
+#
+#
+#
+# rangee   = 6
+# storer = 0
+# for row in range(rangee):
+#     rangee = 6
+#     storer = 0
+#     for column in range(row+1):
+#
+#         if column==0:
+#             print(row+1,end=" ")
+#             rangee-=1
+#         else:
+#             print(rangee+storer+(row+1),end=" ")
+#             storer +=rangee
+#             rangee-=1
+#
+#
+#     print(end="\n")
+#
+#
+#
