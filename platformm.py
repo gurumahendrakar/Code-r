@@ -128,6 +128,8 @@ class platfrom1:
 
                     value.y_move += 100
 
+
+
         platfrom1.AfterRunStand()
         pygame.time.Clock().tick(90)
         pygame.display.flip()
