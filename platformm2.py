@@ -26,7 +26,7 @@ class value_of_characters():
     def __init__(self):
 
         self.x_move = 300
-        self.y_move = (640-80)
+        self.y_move = (660-60)
 
 
         self.last_key = "Right" #using don't delete
@@ -91,7 +91,7 @@ class character_sprites:
 
     def y_moveing(self,platform):
         character_sprite.background(platform=platform)
-        value.y_move-=80
+        value.y_move-=60
 
         if (value.last_key=="Right"):
             image = character_png.rjump_sprite[0]
@@ -100,6 +100,7 @@ class character_sprites:
         else:
             image = character_png.ljump_sprite[0]
             platform.blit(pygame.image.load(image), (value.x_move - 90, value.y_move - 30))
+
 
     def y_downing(self,platform):
         self.background(platform)

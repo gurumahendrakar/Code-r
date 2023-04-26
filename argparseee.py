@@ -42,11 +42,11 @@ import argparse
 #
 x = argparse.ArgumentParser(description="THIS ORDERING FOR FOOD")
 x.add_argument("ID",type=int) # POSITIONAL ARGUMENT ARGUMENT TO PAAS KARNA HI PADEGA
-x.add_argument('--FOOD',type=str,help="ENTER THE NAME OF FOOD") # ARGUMENT PASS NAHI KAROGE TO BHI CHALEGA
+x.add_argument('--FOOD',type=str,help="ENTER THE NAME OF FOOD",dest='food') # ARGUMENT PASS NAHI KAROGE TO BHI CHALEGA
 x.add_argument('--Cheese',help="CHEESE NAME ENTER",
                action='store_true',
                default="NO ORDERED",
-               dest='CHEESE',
+               dest='cheese',
                ) # (DEST ARGUMENT)  --Cheese Ko KO NAYA NAAM RAKH SAKTE HAI
 
 x.add_argument('--friends',nargs="+") #jitna bhi argument de sakte ho
