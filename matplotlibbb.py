@@ -628,4 +628,40 @@ pivot = pd.DataFrame({'day':['s','m','f','w','f'],
 
 # print(data2)
 
-# plt.show()
+
+
+# sea.displot(x=[1,2,2,3,4,5],kind='kde')
+
+
+# va = np.array([5,10,15,20,18,155,155])
+# print(68/6)
+# print('mean  = ' ,sum(va)/len(va))
+# print('varience = ',sum((va-va.mean())*(va-va.mean()))/len(va))
+# print('std = ',np.sqrt(sum((va-va.mean())*(va-va.mean()))/len(va)))
+#
+# print(sum(va)/7+np.sqrt(sum((va-va.mean())*(va-va.mean())))/len(va))
+#
+# # sea.displot(x=va,kind='kde')
+# # sea.displot(x=va,kind='hist',bins=[0,5,10,15,100,155])
+#
+# sea.swarmplot(x=va,hue=va)
+
+
+import mysql.connector as conn
+from sqlalchemy import create_engine
+
+
+
+
+data = sea.load_dataset('tips')
+
+
+database = conn.connect(user = 'root',
+                        password='JOKeR@7411',
+                        host='localhost',
+                        port=1432,
+                        )
+
+
+
+data.to_sql('user1',database)
