@@ -40,6 +40,20 @@ class value_of_characters():
         self.upping = False
         self.downing = False
 
+
+        self.do_not = True
+        self.afterdown_rightClicked = 0
+        self.jumpR_timer = 0
+
+
+
+        self.value_stand = False
+
+
+        self.standJumpCount = False
+
+
+
 class sprites:
 
     def __init__(self):
@@ -73,8 +87,10 @@ class character_sprites:
 
 
     def background(self,platform):
-        background = pygame.image.load(r"S:\platform\Rogue\game_background_1.png")
+        background = pygame.image.load(r"S:\platform\Rogue\Cartoon_Forest_BG_04.png")
         platform.blit(background, (0, 0))
+
+
 
 
     def stand(self,platform):
@@ -89,6 +105,7 @@ class character_sprites:
             platform.blit(image, (value.x_move - 90, value.y_move - 30))
 
 
+
     def y_moveing(self,platform):
         character_sprite.background(platform=platform)
         value.y_move-=60
@@ -100,6 +117,7 @@ class character_sprites:
         else:
             image = character_png.ljump_sprite[0]
             platform.blit(pygame.image.load(image), (value.x_move - 90, value.y_move - 30))
+
 
 
     def y_downing(self,platform):
@@ -127,13 +145,13 @@ class character_sprites:
         character_sprite.background(platform)
 
         if (value.last_key == 'Right'):
-           value.x_move+=30
+           value.x_move+=40
            image = character_png.rrunning_sprite[value.running_value]
            platform.blit(pygame.image.load(image),(value.x_move-60,value.y_move-30))
 
 
         elif (value.last_key == 'Left'):
-            value.x_move-=30
+            value.x_move-=40
             image = character_png.lrunning_sprite[value.running_value]
             platform.blit(pygame.image.load(image),(value.x_move-90,value.y_move-30))
 
@@ -146,13 +164,27 @@ class character_sprites:
 
 
 
+    def standChecking(self):
+
+        if (value.standJumpCount==1) and value.value_stand:
+            value.standJumpCount =  0
+            print(value.value_stand)
+
+        if (value.x_move>=200 and value.x_move<=200+30*8) and (value.y_move==540-120):
+            value.value_stand = True
+
+
+        else:
+            value.value_stand = False
+
+
+
+
 
 value = value_of_characters()
 character_png = sprites()
 timer = timeing()
 character_sprite = character_sprites()
-
-
 
 
 

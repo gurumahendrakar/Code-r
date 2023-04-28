@@ -560,10 +560,10 @@ pivot = pd.DataFrame({'day':['s','m','f','w','f'],
 
 
 
-so = np.arange(0,101)
-
-print(pd.Series(so).mean())
-titanic = sea.load_dataset('titanic')
+# so = np.arange(0,101)
+#
+# print(pd.Series(so).mean())
+# titanic = sea.load_dataset('titanic')
 
 #
 # sea.kdeplot(
@@ -571,9 +571,9 @@ titanic = sea.load_dataset('titanic')
 # )
 
 
-sea.kdeplot(
-    so=titanic.age
-)
+# sea.kdeplot(
+#     so=titanic.age
+# )
 
 
 # print(sea.histplot(
@@ -586,4 +586,46 @@ sea.kdeplot(
 # plt.xticks(rotation='vertical')
 # sea.barplot(x=da.index,y=da.male)
 #
-plt.show()
+
+
+
+
+
+
+#heatmap
+
+# relplot ---> scatter lineplot
+# displot ---> kde hist ecdf
+
+
+#catplot ---> stripplot  swarmplot boxplot  voilinplot countplot pointplot barplot facetgrid pairgrid jointplot
+
+#
+#
+#
+# data = pd.read_csv('s:/csvfiles/students.csv')
+# data2 = pd.read_csv('S:/csvfiles/batsman_season_record.csv')
+# print(data2.columns)
+
+
+# print(data2['2015'].max(),data2['2016'].max(),data2['2017'].max())
+
+
+# x = sea.pairplot(data2,hue='batsman')
+# x.map(func=sea.histplot)
+
+# plt.xticks(rotation= 'vertical')
+
+
+
+#
+#
+# for name,value in (list(zip(data.name,data.partner))):
+#     plt.text(name,value,name)
+
+
+
+
+# print(data2)
+
+# plt.show()
