@@ -633,17 +633,30 @@ pivot = pd.DataFrame({'day':['s','m','f','w','f'],
 # sea.displot(x=[1,2,2,3,4,5],kind='kde')
 
 
-# va = np.array([5,10,15,20,18,155,155])
-# print(68/6)
-# print('mean  = ' ,sum(va)/len(va))
-# print('varience = ',sum((va-va.mean())*(va-va.mean()))/len(va))
-# print('std = ',np.sqrt(sum((va-va.mean())*(va-va.mean()))/len(va)))
-#
-# print(sum(va)/7+np.sqrt(sum((va-va.mean())*(va-va.mean())))/len(va))
-#
-# # sea.displot(x=va,kind='kde')
-# # sea.displot(x=va,kind='hist',bins=[0,5,10,15,100,155])
-#
+va = np.array([10,20,30,25,5,5,7])
+
+print(list(sorted([10,20,30,25,5,5,7])))
+print(pd.Series(va).describe())
+
+print(va-va.mean())
+print('sum = ',sum(va))
+print(68/6)
+print('mean  = ' ,sum(va)/len(va))
+print('varience = ',sum((va-va.mean())*(va-va.mean()))/len(va))
+print('std = ',np.sqrt(sum((va-va.mean())*(va-va.mean()))/len(va)))
+
+print(min(va),max(va))
+print(sum(va)/7+np.sqrt(sum((va-va.mean())*(va-va.mean())))/len(va))
+
+# sea.displot(x=va,kind='kde')
+# sea.displot(np.cumsum(va),bins=[0,40,80,120],kind='hist',binwidth=15)
+# sea.displot(x=va,kind='hist',bins=[0,5,10,15,100,155])
+
+
+sea.barplot(x=va,width=0.5,hue=va)
+sea.displot(x=va,kind='kde')
+sea.displot(x=va,kind='hist')
+
 # sea.swarmplot(x=va,hue=va)
 
 
@@ -653,15 +666,23 @@ from sqlalchemy import create_engine
 
 
 
-data = sea.load_dataset('tips')
+# data = sea.load_dataset('tips')
+#
+#
+# database = conn.connect(user = 'root',
+#                         password='JOKeR@7411',
+#                         host='localhost',
+#                         port=1432,
+#                         )
+#
+#
+#
+# data.to_sql('user1',database)
+
+# data = [0,1,2,3,5,6,7,77]
+# sea.kdeplot(x=data)
 
 
-database = conn.connect(user = 'root',
-                        password='JOKeR@7411',
-                        host='localhost',
-                        port=1432,
-                        )
+plt.show()
 
 
-
-data.to_sql('user1',database)

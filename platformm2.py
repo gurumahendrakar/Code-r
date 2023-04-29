@@ -142,6 +142,7 @@ class character_sprites:
 
 
     def x_moveing(self,platform):
+
         character_sprite.background(platform)
 
         if (value.last_key == 'Right'):
@@ -168,11 +169,11 @@ class character_sprites:
 
         if (value.standJumpCount==1) and value.value_stand:
             value.standJumpCount =  0
-            print(value.value_stand)
 
-        if (value.x_move>=200 and value.x_move<=200+30*8) and (value.y_move==540-120):
+
+        if (value.x_move>=200 and value.x_move<=200+30*8) and (value.y_move==540-120) or\
+                ((value.x_move>=500 and value.x_move<=540)  and (value.y_move==480-120)):
             value.value_stand = True
-
 
         else:
             value.value_stand = False
