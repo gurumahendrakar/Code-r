@@ -560,10 +560,10 @@ pivot = pd.DataFrame({'day':['s','m','f','w','f'],
 
 
 
-so = np.arange(0,101)
-
-print(pd.Series(so).mean())
-titanic = sea.load_dataset('titanic')
+# so = np.arange(0,101)
+#
+# print(pd.Series(so).mean())
+# titanic = sea.load_dataset('titanic')
 
 #
 # sea.kdeplot(
@@ -571,9 +571,9 @@ titanic = sea.load_dataset('titanic')
 # )
 
 
-sea.kdeplot(
-    so=titanic.age
-)
+# sea.kdeplot(
+#     so=titanic.age
+# )
 
 
 # print(sea.histplot(
@@ -586,4 +586,82 @@ sea.kdeplot(
 # plt.xticks(rotation='vertical')
 # sea.barplot(x=da.index,y=da.male)
 #
-plt.show()
+
+
+
+
+
+
+#heatmap
+
+# relplot ---> scatter lineplot
+# displot ---> kde hist ecdf
+
+
+#catplot ---> stripplot  swarmplot boxplot  voilinplot countplot pointplot barplot facetgrid pairgrid jointplot
+
+#
+#
+#
+# data = pd.read_csv('s:/csvfiles/students.csv')
+# data2 = pd.read_csv('S:/csvfiles/batsman_season_record.csv')
+# print(data2.columns)
+
+
+# print(data2['2015'].max(),data2['2016'].max(),data2['2017'].max())
+
+
+# x = sea.pairplot(data2,hue='batsman')
+# x.map(func=sea.histplot)
+
+# plt.xticks(rotation= 'vertical')
+
+
+
+#
+#
+# for name,value in (list(zip(data.name,data.partner))):
+#     plt.text(name,value,name)
+
+
+
+
+# print(data2)
+
+
+
+# sea.displot(x=[1,2,2,3,4,5],kind='kde')
+
+
+# va = np.array([5,10,15,20,18,155,155])
+# print(68/6)
+# print('mean  = ' ,sum(va)/len(va))
+# print('varience = ',sum((va-va.mean())*(va-va.mean()))/len(va))
+# print('std = ',np.sqrt(sum((va-va.mean())*(va-va.mean()))/len(va)))
+#
+# print(sum(va)/7+np.sqrt(sum((va-va.mean())*(va-va.mean())))/len(va))
+#
+# # sea.displot(x=va,kind='kde')
+# # sea.displot(x=va,kind='hist',bins=[0,5,10,15,100,155])
+#
+# sea.swarmplot(x=va,hue=va)
+
+
+import mysql.connector as conn
+from sqlalchemy import create_engine
+
+
+
+
+data = sea.load_dataset('tips')
+
+
+database = conn.connect(user = 'root',
+                        password='JOKeR@7411',
+                        host='localhost',
+                        port=1432,
+                        )
+
+
+
+data.to_sql('user1',database)
