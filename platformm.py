@@ -47,11 +47,13 @@ class platfrom1:
 
                     # full down content are here don't confuse
 
+
+
                     if (time.time()-value.jumpR_timer)>0.15353256235353534341*1.6:
                         value.do_not = False
 
 
-                    if (time.time()-timer.runnT)<0.225352525355353 and value.do_not: # jump karne ke baad kitna right jaana hai
+                    if (time.time()-timer.runnT)<0.225352525355353 and value.do_not and not value.value_stand : # jump karne ke baad kitna right jaana hai
 
                         character_sprite.background(self.window)
 
@@ -74,8 +76,9 @@ class platfrom1:
 
                     else:
 
-                        if (value.value_stand) and (time.time()-timer.jump_timer)<(0.6000000000000/1.5):
+                        if (value.value_stand) and (time.time()-timer.jump_timer)<(0.6000000000000):
                             pass
+
                         else:
                             character_sprite.standChecking()
                         
@@ -98,17 +101,27 @@ class platfrom1:
 
 
 
-                            if (time.time()-timer.jump_timer)<(0.6000000000000/1.5):
+                            if (time.time()-timer.jump_timer)<(0.6000000000000):
                                 character_sprite.y_upping(self.window)
                                 value.standJumpCount += 1
 
 
 
                         else:
+
                             # jab kaha pe stand nahi karega ye chalega
 
+                            if (time.time()-timer.runnT<0.125343535342524) and value.count<3:
+                                if (value.last_key=="Left"):
+                                    value.x_move-=40
 
-                            value.y_move+=60
+                                else:
+                                    value.x_move+=40
+
+                                value.count+=1
+
+                            else:
+                                value.y_move+=60
                             character_sprite.y_downing(self.window)
 
 
@@ -131,7 +144,7 @@ class platfrom1:
 
             if event.type == pygame.KEYDOWN:
 
-                if ((event.key == pygame.K_LEFT) and value.afterdown_rightClicked<3) \
+                if ((event.key == pygame.K_LEFT) and value.afterdown_rightClicked<2) \
                         or (event.key==pygame.K_LEFT and value.value_stand):
 
 
@@ -144,12 +157,14 @@ class platfrom1:
                         character_sprite.x_moveing(self.window)
 
 
-                elif ((event.key == pygame.K_RIGHT) and value.afterdown_rightClicked<3)\
+                elif ((event.key == pygame.K_RIGHT) and value.afterdown_rightClicked<2)\
                         or (event.key==pygame.K_RIGHT) and value.value_stand:
 
 
                     value.another_lastkey = "Right"
                     value.last_key = "Right"
+
+                    value.jumpR_timer = time.time()
 
                     timer.runnT = time.time()
 

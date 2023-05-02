@@ -55,6 +55,8 @@ class value_of_characters():
         self.another_lastkey = ''
 
 
+        self.count = 0
+
 
 
 
@@ -180,13 +182,26 @@ class character_sprites:
         if (value.x_move>=200 and value.x_move<=200+30*8) and (value.y_move==540-120) or\
                 ((value.x_move>=500 and value.x_move<=540)  and (value.y_move==480-120)):
             value.value_stand = True
+            value.count = 0
             value.standJumpCount = 0
+
+
 
         else:
             value.value_stand = False
 
 
 
+    def tile1(self,platform):
+        for x in range(20):
+            platform.blit(pygame.image.load(r'S:\platform\Rogue\ground.png'), (60 * x, 680))
+
+
+
+    def smalltile1(self,platform):
+        platform.blit(pygame.image.load(
+            r"C:\Users\mahen\Downloads\craftpix-781131-free-swamp-game-tileset-pixel-art\1 Tiles\Tile_52.png"),
+                         (500, 440))
 
 
 value = value_of_characters()
