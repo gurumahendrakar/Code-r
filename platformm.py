@@ -17,14 +17,9 @@ class platfrom1:
 
 
 
-
     def AfterRunStand(self):
        if (time.time()-timer.runnT)>0.21353435343434434 and not (value.jump):
            character_sprite.stand(self.window)
-
-
-  
-
 
 
     def jump(self,platform):
@@ -78,17 +73,29 @@ class platfrom1:
 
 
                     else:
-                        character_sprite.standChecking()
+
+                        if (value.value_stand) and (time.time()-timer.jump_timer)<(0.6000000000000/1.5):
+                            pass
+                        else:
+                            character_sprite.standChecking()
                         
 
                         if value.value_stand:
 
-                            if (time.time()-timer.runnT>0.21353435343434434/2):
+                            if (time.time()-timer.runnT>0.21353435343434434):
                                 character_sprite.stand(self.window)
 
 
                             else:
-                                character_sprite.x_moveing(self.window)
+
+                                if value.another_lastkey=="Left":
+                                    character_sprite.x_moveing(self.window)
+                                    value.another_lastkey = ''
+
+                                elif value.another_lastkey=="Right":
+                                    character_sprite.x_moveing(self.window)
+                                    value.another_lastkey = ""
+
 
 
                             if (time.time()-timer.jump_timer)<(0.6000000000000/1.5):
@@ -97,10 +104,10 @@ class platfrom1:
 
 
 
-
-
                         else:
                             # jab kaha pe stand nahi karega ye chalega
+
+
                             value.y_move+=60
                             character_sprite.y_downing(self.window)
 
@@ -117,10 +124,6 @@ class platfrom1:
 
     def main_content(self):
 
-
-
-        pygame.time.delay(10)
-
         for event in pygame.event.get():
 
             if event.type == pygame.QUIT:
@@ -131,7 +134,10 @@ class platfrom1:
                 if ((event.key == pygame.K_LEFT) and value.afterdown_rightClicked<3) \
                         or (event.key==pygame.K_LEFT and value.value_stand):
 
+
+                    value.another_lastkey = "Left"
                     value.last_key = "Left"
+
                     timer.runnT = time.time()
 
                     if not (value.downing) :
@@ -142,7 +148,9 @@ class platfrom1:
                         or (event.key==pygame.K_RIGHT) and value.value_stand:
 
 
+                    value.another_lastkey = "Right"
                     value.last_key = "Right"
+
                     timer.runnT = time.time()
 
                     if not (value.upping)  and not (value.downing):
@@ -150,7 +158,10 @@ class platfrom1:
 
 
                 elif not (value.jump) or value.value_stand:
-                    timer.jump_timer = time.time()
+
+
+                    if (value.standJumpCount==0):
+                        timer.jump_timer = time.time()
 
                     if (event.key == pygame.K_UP) and not value.value_stand:
                         timer.jump_timer = time.time()
@@ -163,8 +174,6 @@ class platfrom1:
 
 
 
-
-
         platfrom1.AfterRunStand()
 
         for x in range(20):
@@ -174,6 +183,7 @@ class platfrom1:
 
         for x in range(7):
             self.window.blit(pygame.image.load(r"C:\Users\mahen\Downloads\craftpix-781131-free-swamp-game-tileset-pixel-art\1 Tiles\Tile_52.png"),(200+30*x,500))
+
 
         self.window.blit(pygame.image.load(
             r"C:\Users\mahen\Downloads\craftpix-781131-free-swamp-game-tileset-pixel-art\1 Tiles\Tile_52.png"),
