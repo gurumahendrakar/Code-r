@@ -48,9 +48,10 @@ class value_of_characters():
 
 
         self.value_stand = False
-
-
         self.standJumpCount = False
+
+
+
 
 
 
@@ -94,6 +95,10 @@ class character_sprites:
 
 
     def stand(self,platform):
+
+        if (value.value_stand):
+            value.stand_mountain = False
+
         self.background(platform)
 
         if (value.last_key=="Right"):
@@ -106,7 +111,7 @@ class character_sprites:
 
 
 
-    def y_moveing(self,platform):
+    def y_upping(self,platform):
         character_sprite.background(platform=platform)
         value.y_move-=60
 
