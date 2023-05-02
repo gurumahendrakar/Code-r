@@ -52,6 +52,10 @@ class value_of_characters():
 
 
 
+        self.another_lastkey = ''
+
+
+
 
 
 
@@ -172,13 +176,11 @@ class character_sprites:
 
     def standChecking(self):
 
-        if (value.standJumpCount==1) and value.value_stand:
-            value.standJumpCount =  0
-
 
         if (value.x_move>=200 and value.x_move<=200+30*8) and (value.y_move==540-120) or\
                 ((value.x_move>=500 and value.x_move<=540)  and (value.y_move==480-120)):
             value.value_stand = True
+            value.standJumpCount = 0
 
         else:
             value.value_stand = False
