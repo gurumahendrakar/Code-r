@@ -632,18 +632,32 @@ pivot = pd.DataFrame({'day':['s','m','f','w','f'],
 
 # sea.displot(x=[1,2,2,3,4,5],kind='kde')
 
-
-# va = np.array([5,10,15,20,18,155,155])
+#
+# va = np.array([10,20,30,25,5,5,7])
+#
+# print(list(sorted([10,20,30,25,5,5,7])))
+# print(pd.Series(va).describe())
+#
+# print(va-va.mean())
+# print('sum = ',sum(va))
 # print(68/6)
 # print('mean  = ' ,sum(va)/len(va))
 # print('varience = ',sum((va-va.mean())*(va-va.mean()))/len(va))
 # print('std = ',np.sqrt(sum((va-va.mean())*(va-va.mean()))/len(va)))
 #
+# print(min(va),max(va))
 # print(sum(va)/7+np.sqrt(sum((va-va.mean())*(va-va.mean())))/len(va))
 #
 # # sea.displot(x=va,kind='kde')
+# # sea.displot(np.cumsum(va),bins=[0,40,80,120],kind='hist',binwidth=15)
 # # sea.displot(x=va,kind='hist',bins=[0,5,10,15,100,155])
 #
+#
+# sea.barplot(x=va,width=0.5,hue=va)
+# sea.displot(x=va,kind='kde')
+# sea.displot(x=va,kind='hist')
+
+
 # sea.swarmplot(x=va,hue=va)
 
 
@@ -653,15 +667,150 @@ from sqlalchemy import create_engine
 
 
 
-data = sea.load_dataset('tips')
+# data = sea.load_dataset('tips')
+#
+#
+# database = conn.connect(user = 'root',
+#                         password='JOKeR@7411',
+#                         host='localhost',
+#                         port=1432,
+#                         )
+#
+#
+#
+# data.to_sql('user1',database)
+
+# data = [0,1,2,3,5,6,7,77]
+# sea.kdeplot(x=data)
+
+# a = [0,2,4,12,8,10,12,15]
+# b= [10,10,2500,12,8,2500,15,2500]
+#
+#
+#
+#
+#
+# #
+# sea.displot(x=a,color='red',fill=True,kind='kde')
+# #
+# plt.show()
 
 
-database = conn.connect(user = 'root',
-                        password='JOKeR@7411',
-                        host='localhost',
-                        port=1432,
-                        )
+#
+# titanic = sea.load_dataset('titanic').age
+#
+#
+# io = [5,1,2,35,5,52,3,53,4,523,4425,25,25234,34]
+#
+#
+#
+#
+# # print(700/np.array(io).std())
+# # sea.kdeplot(x=titanic)
+# #
+# # print((np.array(io).var()+np.array(io).std())/np.array(io).std())
+#
+#
+# io = (np.array(io) - np.array(io).mean())/np.array(io).std()
+#
+# sea.ecdfplot(x=io)
+# plt.show()
+
+#
+#
+# data = ("HH","TH","TT","TH");
+#
+# hh = 0
+# th = 0
+# tt = 0
+# #
+#
+#
+# if len(data)%2==0:
+#     point = len(data)//2
+#
+# else:
+#     data = data[:-1]
+#     point = len(data)//2
+#
+#
+#
+# zip_data = ((zip(data[:point],data[point:])))
+#
+#
+# def checker(x):
+#     global hh,th,tt
+#
+#     if (x == "HH"):
+#         hh+=1
+#
+#     elif (x == "TT"):
+#         tt+=1
+#
+#
+# for (x,y) in zip_data:
+#     checker(x)
+#     checker(y)
+#
+#
+#
+# x_square = []
+#
+# for x,y in (list(zip([-2,2,0],[hh,tt,th]))):
+#     x_square.append(x*x)
+#
+# print(x_square)
 
 
 
-data.to_sql('user1',database)
+
+
+
+
+
+
+
+
+data = sea.load_dataset('titanic')
+print(data.columns)
+
+#
+
+size = (data.survived.dropna().size)
+print(data.survived.value_counts())
+
+
+
+no = (549/size*10)
+yes = (342/size*10)
+
+print(size,yes,no)
+
+#
+# # #
+# # print(np.math.factorial(10))
+# #
+#
+# samples = []
+#
+# for _ in range(10):
+#
+#     sample = data.sample(size//10)
+#     samples.append(sample.size)
+#
+#
+# print(np.math.factorial(100)/(np.exp(yes)*np.exp(no)))
+
+
+
+# print(120 * (0.3 * np.exp(0.3))*(0.7 * np.exp(0.7)))
+# print(samples)
+
+
+
+
+
+
+
+
+\
