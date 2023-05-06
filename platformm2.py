@@ -7,19 +7,10 @@ import pygame
 class timeing:
 
     def __init__(self):
-        self.runnT =  False
-
+        self.stand_timer = False
         self.jump_timer = False
-        self.down_timer = False
 
 
-        self.attack_timer = False
-
-
-        self.up_timer = False
-
-
-        self.jump_right_timer = False
 
 
 class value_of_characters():
@@ -27,33 +18,9 @@ class value_of_characters():
 
         self.x_move = 300
         self.y_move = (660-60)
-
-
         self.last_key = "Right" #using don't delete
-
         self.running_value = 0
-        self.y_move_value =  3
-
-
-        self.jump = False
-
-        self.upping = False
-        self.downing = False
-
-
-        self.do_not = True
-        self.afterdown_rightClicked = 0
-        self.jumpR_timer = 0
-
-
-
-        self.value_stand = False
-        self.standJumpCount = False
-
-
-
-        self.another_lastkey = ''
-
+        self.stand = True
 
 
 
@@ -100,19 +67,20 @@ class character_sprites:
 
     def stand(self,platform):
 
-        if (value.value_stand):
-            value.stand_mountain = False
 
-        self.background(platform)
+        if (value.stand):
 
-        if (value.last_key=="Right"):
-            image = pygame.image.load(character_png.rrunning_sprite[0])
-            platform.blit(image,(value.x_move-60,value.y_move-30))
 
-        else:
-            image = pygame.image.load(character_png.lrunning_sprite[0])
-            platform.blit(image, (value.x_move - 90, value.y_move - 30))
+            self.background(platform)
+            if (value.last_key=="Right"):
+                image = pygame.image.load(character_png.rrunning_sprite[0])
+                platform.blit(image,(value.x_move-60,value.y_move-30))
 
+            else:
+                image = pygame.image.load(character_png.lrunning_sprite[0])
+                platform.blit(image, (value.x_move - 90, value.y_move - 30))
+
+            value.stand = False
 
 
     def y_upping(self,platform):
@@ -155,13 +123,13 @@ class character_sprites:
         character_sprite.background(platform)
 
         if (value.last_key == 'Right'):
-           value.x_move+=40
+           value.x_move+=20
            image = character_png.rrunning_sprite[value.running_value]
            platform.blit(pygame.image.load(image),(value.x_move-60,value.y_move-30))
 
 
         elif (value.last_key == 'Left'):
-            value.x_move-=40
+            value.x_move-=20
             image = character_png.lrunning_sprite[value.running_value]
             platform.blit(pygame.image.load(image),(value.x_move-90,value.y_move-30))
 
@@ -175,18 +143,31 @@ class character_sprites:
 
 
     def standChecking(self):
-
-
         if (value.x_move>=200 and value.x_move<=200+30*8) and (value.y_move==540-120) or\
                 ((value.x_move>=500 and value.x_move<=540)  and (value.y_move==480-120)):
             value.value_stand = True
+            value.count = 0
             value.standJumpCount = 0
+
+
 
         else:
             value.value_stand = False
 
+    def up_checking(self):
+        if ((value.x_move >= 200 and value.x_move <= 200 + 30 * 8) and (value.y_move == 500-80)):
+            value.do_go_up = True
+
+    def tile1(self,platform):
+        for x in range(20):
+            platform.blit(pygame.image.load(r'S:\platform\Rogue\ground.png'), (60 * x, 680))
 
 
+
+    def smalltile1(self,platform):
+        platform.blit(pygame.image.load(
+            r"C:\Users\mahen\Downloads\craftpix-781131-free-swamp-game-tileset-pixel-art\1 Tiles\Tile_52.png"),
+                         (500, 440))
 
 
 value = value_of_characters()
