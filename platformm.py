@@ -14,217 +14,78 @@ class platfrom1:
         self.window = pygame.display.set_mode((width,height))
         pygame.display.set_caption('RogueXFighter')
         self.tile = pygame.image.load(r"S:\platform\Rogue\tiles\tile.png")
+        self.clock = pygame.time.Clock()
 
 
 
-    def AfterRunStand(self):
-       if (time.time()-timer.runnT)>0.21353435343434434 and not (value.jump):
-           character_sprite.stand(self.window)
+    def events(self):
 
 
-    def jump(self,platform):
+        key = (pygame.key.get_pressed())
 
 
-        if (value.jump): # upping content are here
+        if key[pygame.K_LEFT]:
+            timer.stand_timer = time.time()
+            value.stand = False
+            value.last_key = "Left"
+            character_sprite.x_moveing(self.window)
 
-            if (time.time() - timer.jump_timer) < (0.6000000000000/1.5) and not (value.value_stand):
-                value.upping = True
-                value.downing = True
-                character_sprite.y_upping(self.window)
+
+        elif key[pygame.K_RIGHT]:
+            timer.stand_timer = time.time()
+            value.stand = False
+            value.last_key = "Right"
+            character_sprite.x_moveing(self.window)
 
 
+        elif key[pygame.K_UP] and (time.time()-timer.jump_timer)>0.1523235355344352345*2:
+            timer.jump_timer = time.time()
+            character_sprite.y_upping(self.window)
+            value.stand = False
+
+        elif key[pygame.K_DOWN]:
+            value.y_move+=40
+
+        else:
+
+            if value.last_key=="Right" and value.last_key=="Left":
+                if ((time.time()-timer.stand_timer>0.152523535534352345) and (time.time()-timer.stand_timer<0.152523535534352345*1.2)) :
+                    value.stand = True
 
             else:
-                #value.upping  & value.dowing anyone flase do not work mein ___Right __ event
-
-
-                if value.upping==True: #
-                    value.jumpR_timer = time.time()
-                    value.upping = False
-
-
-                if (value.y_move!=600):
-
-                    # full down content are here don't confuse
-
-
-
-                    if (time.time()-value.jumpR_timer)>0.15353256235353534341*1.6:
-                        value.do_not = False
-
-
-                    if (time.time()-timer.runnT)<0.225352525355353 and value.do_not and not value.value_stand : # jump karne ke baad kitna right jaana hai
-
-                        character_sprite.background(self.window)
-
-                        if (value.last_key=="Left"):
-
-                            value.x_move-=40
-                            image = character_png.ljump_sprite[value.y_move_value]
-                            platform.blit(pygame.image.load(image), (value.x_move - 90, value.y_move - 30))
-
-                        else:
-
-                            value.x_move += 40
-                            image = character_png.rjump_sprite[value.y_move_value]
-                            platform.blit(pygame.image.load(image), (value.x_move - 60, value.y_move - 30))
-
-
-                        value.afterdown_rightClicked+=1
-
-
-
-                    else:
-
-                        if (value.value_stand) and (time.time()-timer.jump_timer)<(0.6000000000000):
-                            pass
-
-                        else:
-                            character_sprite.standChecking()
-                        
-
-                        if value.value_stand:
-
-                            if (time.time()-timer.runnT>0.21353435343434434):
-                                character_sprite.stand(self.window)
-
-
-                            else:
-
-                                if value.another_lastkey=="Left":
-                                    character_sprite.x_moveing(self.window)
-                                    value.another_lastkey = ''
-
-                                elif value.another_lastkey=="Right":
-                                    character_sprite.x_moveing(self.window)
-                                    value.another_lastkey = ""
-
-
-
-                            if (time.time()-timer.jump_timer)<(0.6000000000000):
-                                character_sprite.y_upping(self.window)
-                                value.standJumpCount += 1
-
-
-
-                        else:
-
-                            # jab kaha pe stand nahi karega ye chalega
-
-                            if (time.time()-timer.runnT<0.125343535342524) and value.count<3:
-                                if (value.last_key=="Left"):
-                                    value.x_move-=40
-
-                                else:
-                                    value.x_move+=40
-
-                                value.count+=1
-
-                            else:
-                                value.y_move+=60
-                            character_sprite.y_downing(self.window)
-
+                if (time.time()-timer.jump_timer>0.1523235355344352345*2):
+                    value.stand = True
 
                 else:
-                    value.upping = False
-                    value.downing = False
-                    value.jump = False
-                    value.do_not = True
-                    value.afterdown_rightClicked = 0
-                    character_sprite.stand(self.window)
-
-
-
-    def main_content(self):
-
-        for event in pygame.event.get():
-
-            if event.type == pygame.QUIT:
-                pygame.quit()
-
-            if event.type == pygame.KEYDOWN:
-
-                if ((event.key == pygame.K_LEFT) and value.afterdown_rightClicked<2) \
-                        or (event.key==pygame.K_LEFT and value.value_stand):
-
-
-                    value.another_lastkey = "Left"
-                    value.last_key = "Left"
-
-                    timer.runnT = time.time()
-
-                    if not (value.downing) :
-                        character_sprite.x_moveing(self.window)
-
-
-                elif ((event.key == pygame.K_RIGHT) and value.afterdown_rightClicked<2)\
-                        or (event.key==pygame.K_RIGHT) and value.value_stand:
-
-
-                    value.another_lastkey = "Right"
-                    value.last_key = "Right"
-
-                    value.jumpR_timer = time.time()
-
-                    timer.runnT = time.time()
-
-                    if not (value.upping)  and not (value.downing):
-                        character_sprite.x_moveing(self.window)
-
-
-                elif not (value.jump) or value.value_stand:
-
-
-                    if (value.standJumpCount==0):
-                        timer.jump_timer = time.time()
-
-                    if (event.key == pygame.K_UP) and not value.value_stand:
-                        timer.jump_timer = time.time()
-                        value.jump = True
-
-
-
-                elif (event.key == pygame.K_DOWN):
-                    value.y_move += 100
-
-
-
-        platfrom1.AfterRunStand()
-
-        for x in range(20):
-            self.window.blit(pygame.image.load(r'S:\platform\Rogue\ground.png'),(60*x,680))
-
-
-
-        for x in range(7):
-            self.window.blit(pygame.image.load(r"C:\Users\mahen\Downloads\craftpix-781131-free-swamp-game-tileset-pixel-art\1 Tiles\Tile_52.png"),(200+30*x,500))
-
-
-        self.window.blit(pygame.image.load(
-            r"C:\Users\mahen\Downloads\craftpix-781131-free-swamp-game-tileset-pixel-art\1 Tiles\Tile_52.png"),
-                         (500, 440))
-
-
-
-
-        pygame.time.Clock().tick(30)
-        pygame.display.flip()
-
+                    character_sprite.y_upping(self.window)
 
 
     def mainloop(self):
+
         character_sprite.icon()
         character_sprite.background(self.window)
+        character_sprite.stand(self.window)
 
 
         while True:
-
-            platfrom1.main_content()
-
-            if (value.jump):
-                platfrom1.jump(self.window)
+            pygame.time.delay(30)
+            self.events()
 
 
+            for event in pygame.event.get():
+                if event.type==pygame.QUIT:
+                    pygame.quit()
+                    exit()
+
+
+
+
+
+
+
+            character_sprite.stand(self.window)
+            self.clock.tick(30)
+            pygame.display.update()
 
 
 
