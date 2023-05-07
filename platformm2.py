@@ -9,6 +9,7 @@ class timeing:
     def __init__(self):
         self.stand_timer = False
         self.jump_timer = False
+        self.jump_run = False
 
 
 
@@ -21,6 +22,11 @@ class value_of_characters():
         self.last_key = "Right" #using don't delete
         self.running_value = 0
         self.stand = True
+        self.y_axis_downing = 0
+        self.value_600 = True
+        self.jump_runCount = 0 ;
+
+        self.jump_limit = True
 
 
 
@@ -29,11 +35,19 @@ class value_of_characters():
 class sprites:
 
     def __init__(self):
-        self.rrunning_sprite = glob.glob("S:/platform/rogue/Walk/*.png")
         self.lrunning_sprite = glob.glob("S:/platform/rogue/LeftWalk/*.png")
+        self.rrunning_sprite = glob.glob("S:/platform/rogue/Walk/*.png")
 
-        self.rjump_sprite = glob.glob("S:/platform/rogue/Jump/*.png")
         self.ljump_sprite = glob.glob("S:/platform/rogue/LeftJump/*.png")
+        self.rjump_sprite = glob.glob("S:/platform/rogue/Jump/*.png")
+
+
+        self.ljump_runn_sprite = pygame.image.load(self.ljump_sprite[3])
+        self.rjump_runn_sprite = pygame.image.load(self.rjump_sprite[3])
+
+
+        print(self.ljump_runn_sprite)
+        print(self.rjump_runn_sprite)
 
 
 class character(pygame.sprite.Sprite):
@@ -66,7 +80,6 @@ class character_sprites:
 
 
     def stand(self,platform):
-
 
         if (value.stand):
 
@@ -102,18 +115,18 @@ class character_sprites:
 
 
         if (value.last_key == "Right"):
-            image = character_png.rjump_sprite[value.y_move_value]
+            image = character_png.rjump_sprite[value.y_axis_downing]
             platform.blit(pygame.image.load(image), (value.x_move - 60, value.y_move - 30))
 
         else:
-            image = character_png.ljump_sprite[value.y_move_value]
+            image = character_png.ljump_sprite[value.y_axis_downing]
             platform.blit(pygame.image.load(image), (value.x_move - 90, value.y_move - 30))
 
-        if (value.y_move_value<4):
-            value.y_move_value+=1
+        if (value.y_axis_downing<4):
+            value.y_axis_downing+=1
 
         else:
-            value.y_move_value = 3
+            value.y_axis_downing = 3
 
 
 
