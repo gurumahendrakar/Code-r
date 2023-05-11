@@ -84,7 +84,7 @@ class body:
 
 
     def up_downCharactershower(self,main_window,image,value = 0 ):
-        main_window.blit(pygame.image.load(image[value]),(body_values.xxx_axisvalue,body_values.yyy_axisvalue+20))
+        main_window.blit(pygame.image.load(image[value]),(body_values.xxx_axisvalue-20,body_values.yyy_axisvalue+20))
 
 
 
