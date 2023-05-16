@@ -1,11 +1,12 @@
 import glob
-
+import numpy as np
 import pygame
+pygame.font.init()
 
-class times:
+class timer:
 
     def __init__(self):
-        self.jump_clock = False
+        self.attack_timer = False
 
 class body_values:
 
@@ -29,13 +30,34 @@ class body_values:
 
 
         self.floor_stand = False
-        self.floor_click  = False
+        self.floor_click = False
+
+
+        self.attack_clicked = False
+
+
+        self.font = pygame.font.SysFont('cascade',size=30)
+        self.coin_score = 0
+
+        self.tile1_coins = (np.arange(200, 200 + 30 * 7, step=30))
+        self.tile2_coins = (np.arange(800, 800 + 30 * 7, step=30))
+
+
+        self.tile1coin_remover_array = self.tile1_coins-60
+        self.tile2coin_remover_array = self.tile2_coins-60
+
+
+
+
+
+
+
 
 
 class images:
 
     def __init__(self):
-        self.background = pygame.image.load('S:/Mage/game_background.png')
+        self.background = pygame.image.load('S:/Mage/game_background.jpg')
 
         self.rrun = glob.glob("S:/Mage/Run/*.png")
         self.lrun = glob.glob("S:/Mage/Leftrun/*.png")
@@ -45,8 +67,12 @@ class images:
 
 
         self.rstander = pygame.image.load("S:\Mage\Walk\walk6.png")
-        self.lstander = pygame.image.load(self.lrun[7])
+        self.lstander = pygame.image.load("S:\Mage\Walk\leftwalk.png")
 
+
+        self.rattack = glob.glob('S:/Mage/Attack/*.png')
+
+        self.coin_image = pygame.image.load("S:/Mage/coin.png")
 
 class body:
 
@@ -84,7 +110,7 @@ class body:
 
 
     def up_downCharactershower(self,main_window,image,value = 0 ):
-        main_window.blit(pygame.image.load(image[value]),(body_values.xxx_axisvalue-20,body_values.yyy_axisvalue+20))
+        main_window.blit(pygame.image.load(image[value]),(body_values.xxx_axisvalue,body_values.yyy_axisvalue+20))
 
 
 
@@ -127,17 +153,76 @@ class body:
 
     def floor_standing(self):
 
-        if (((body_values.xxx_axisvalue>140 and body_values.xxx_axisvalue<400) or
-             (body_values.xxx_axisvalue>=730 and body_values.xxx_axisvalue<(750+250)))
+        if (((body_values.xxx_axisvalue>120+10 and body_values.xxx_axisvalue<330) or
+             (body_values.xxx_axisvalue>730+10 and body_values.xxx_axisvalue<(750+(230-50))))
                 and (body_values.yyy_axisvalue==(470-120))):
 
             body_values.floor_stand = True
+            body_values.floor_click = False
+
 
         else:
+            body_values.floor_click = True
             body_values.floor_stand = False
 
 
+
+    def up_floorChecking(self):
+        if (((body_values.xxx_axisvalue > 120+10 and body_values.xxx_axisvalue < 330) or
+             (body_values.xxx_axisvalue > 730 and body_values.xxx_axisvalue < (750 + (230-30))))
+                and (body_values.yyy_axisvalue == (470 - 120+40))):
+            return True
+
+        return False
+
+
+    def tile(self,main_window,start,end):
+        main_window.blit(pygame.image.load(r"S:/Mage/tilee.png"),
+                          (start,end))
+
+    def ground(self,main_window):
+        main_window.blit(pygame.image.load(r'S:/Mage/bigtile.png'),(0,680))
+
+
+
+    def coins_remover(self):
+
+        if (((body_values.xxx_axisvalue > 120 + 10 and body_values.xxx_axisvalue < 330) or
+          (bod
+                  y_values.xxx_axisvalue > 730 + 10 and body_values.xxx_axisvalue < (750 + (230 - 50)))) and body_values.yyy_axisvalue==270):
+            body_values.tile1_coins = (body_values.tile1coin_remover_array[body_values.tile1coin_remover_array>body_values.xxx_axisvalue])
+            print(body_values.tile1_coins,body_values.xxx_axisvalue,body_values.yyy_axisvalue)
+
+
+class attack_group(pygame.sprite.Sprite):
+
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.image.load(r'S:/Mage/Run/run1.png')
+        self.rect = self.image.get_rect()
+        self.rect.topleft = [body_values.xxx_axisvalue,body_values.yyy_axisvalue]
+
+
+
+        self.attack_value = 0
+
+    def update(self):
+        self.image = pygame.image.load(images.rattack[self.attack_value])
+
+        self.attack_value+=1
+        if (len(images.rattack)-1<self.attack_value):
+            self.attack_value  = 0
+
+
+
+
+
+
+timer = timer()
 mainplayer_body  = body()
 body_values = body_values()
 images = images()
 
+attack_group = attack_group()
+attack = pygame.sprite.Group()
+attack.add(attack_group)

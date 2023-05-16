@@ -3931,3 +3931,25 @@
 # print(bytes.fromhex(hexa))
 #
 #
+import itertools
+import sys
+
+
+
+def be_one():
+
+    for _ in range(8):
+        print(_)
+
+
+be_one = be_one()
+
+def be_two():
+
+    for _ in be_one:
+        print(_)
+        
+so   = be_two
+
+
+print(so())
