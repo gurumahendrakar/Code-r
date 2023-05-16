@@ -827,11 +827,11 @@
 # # # # #     print(x,list(y))
 # # # #
 # # # # #
-import time
-
-import matplotlib.pyplot as plt
-import pandas as pd
+# import time
 #
+# import matplotlib.pyplot as plt
+# import pandas as pd
+# #
 #
 # set_ = pd.DataFrame({'city':['newyork','chicago','brazil','brazil',],
 #                      'tempreture':[100,200,300,400],
@@ -842,14 +842,14 @@ import pandas as pd
 # set_2 = pd.DataFrame({'city':['newyork','brazil','san francisco','Sexo','newyork'],
 #                      'huminit':[10, 20,30,40,80],
 #                       'tempreture':[100,200,300,400,500]})
-#
-#
-#
+
+
+
 # print(set_.groupby('city'))
-# print(pd.merge(set_,set_2,on='city',how='right'))
+print(pd.merge(set_,set_2,on='city',how='outer'))
 # print()
 # print()
-# # print(pd.merge(set_,set_2,on='huminity',how='outer'))
+# print(pd.merge(set_,set_2,on='huminity',how='outer'))
 # print(pd.merge(set_,set_2,on='city',how='right'))
 
 # # # #
@@ -1537,20 +1537,20 @@ import pandas as pd
 #
 #
 
-
-df = pd.DataFrame({'date':('5/1/2017','5/2/2017','5/3/2017','5/1/2017','5/2/2017',
-                           '5/3/2017','5/1/2017','5/2/2017','5/5/2017'),
-                   'city':('newyork','newyork','newyork','mumbai','mumbai','mumbai',
-                    'bejing','bejing','bejing'),
-                   'humidity':(56,58,60,80,np.NAN,85,26,30,35),
-                   'tempreture':(65,66,68,75,78,82,80,77,79),
-                   'gender':('girl','boy','girl','boy','girl','boy','girl','girl','girl')},)
-
-
-
-
-
-city_groupby = (df.groupby('city'))
+#
+# df = pd.DataFrame({'date':('5/1/2017','5/2/2017','5/3/2017','5/1/2017','5/2/2017',
+#                            '5/3/2017','5/1/2017','5/2/2017','5/5/2017'),
+#                    'city':('newyork','newyork','newyork','mumbai','mumbai','mumbai',
+#                     'bejing','bejing','bejing'),
+#                    'humidity':(56,58,60,80,np.NAN,85,26,30,35),
+#                    'tempreture':(65,66,68,75,78,82,80,77,79),
+#                    'gender':('girl','boy','girl','boy','girl','boy','girl','girl','girl')},)
+#
+#
+#
+#
+#
+# city_groupby = (df.groupby('city'))
 
 # print(city_groupby.get_group('bejing'))
 
@@ -1644,6 +1644,9 @@ city_groupby = (df.groupby('city'))
 #
 # plt.show()
 
+
+
+print('Guru')
 
 
 

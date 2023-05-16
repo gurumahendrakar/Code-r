@@ -796,9 +796,9 @@ two_d = [[1,8,3,2],
 # b = (np.isposinf([[1,2,3,np.Inf,np.NINF]]))
 # print(np.isneginf([1,2,3,np.NINF]))
 
-import keyword
-from pprint import pprint as print
-print(keyword.kwlist)
+# import keyword
+# from pprint import pprint as print
+# print(keyword.kwlist)
 
 """
 size itemsize ndim shape dtype astype fill full transpose linspace random shutffle nan round abs copy identity eye vstack hstack concatinate
@@ -845,3 +845,11 @@ name index colums is_unique shape keys
 # two_d_slice = two_d[[0,1,2,3],[[0,1,2,3]]] = np.arange(1000,5000,1000)
 # print(two_d)
 
+
+
+tile1_coins = (np.arange(200,200+30*6,step=30))
+tile_2_coins = (np.arange(800,800+30*6,step = 30 ))
+
+
+
+print(tile_2_coins)
