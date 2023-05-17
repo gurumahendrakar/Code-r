@@ -850,6 +850,11 @@ name index colums is_unique shape keys
 tile1_coins = (np.arange(200,200+30*6,step=30))
 tile_2_coins = (np.arange(800,800+30*6,step = 30 ))
 
+print(tile1_coins)
+
+delete_coins = (tile1_coins[(tile1_coins>230) ^ (tile1_coins<320)])
+print(delete_coins)
 
 
-print(tile_2_coins)
+
+# print(np.logical_and(tile1_coins>250 ,tile1_coins<350))

@@ -91,13 +91,13 @@ class body:
 
         if body_values.last_press=="Right":
 
-                body_values.xxx_axisvalue+=10
+                body_values.xxx_axisvalue+=5
                 main_window.blit(pygame.image.load(images.rrun[body_values.Running_movevalue]),
                                  (body_values.xxx_axisvalue,body_values.yyy_axisvalue))
 
 
         elif body_values.last_press=="Left":
-            body_values.xxx_axisvalue-=10
+            body_values.xxx_axisvalue-=5
             main_window.blit(pygame.image.load(images.lrun[body_values.Running_movevalue]),
                              (body_values.xxx_axisvalue, body_values.yyy_axisvalue))
 
@@ -150,26 +150,38 @@ class body:
 
 
 
-
     def floor_standing(self):
 
-        if (((body_values.xxx_axisvalue>120+10 and body_values.xxx_axisvalue<330) or
-             (body_values.xxx_axisvalue>730+10 and body_values.xxx_axisvalue<(750+(230-50))))
-                and (body_values.yyy_axisvalue==(470-120))):
+        if body_values.last_press=="Left":
+            if (((body_values.xxx_axisvalue>120+10 and body_values.xxx_axisvalue<310) or
+                 (body_values.xxx_axisvalue>710 and body_values.xxx_axisvalue<(710+200)))
+                    and (body_values.yyy_axisvalue==(470-120))):
+                body_values.floor_stand = True
+                body_values.floor_click = False
+            else:
+                body_values.floor_click = True
+                body_values.floor_stand = False
 
-            body_values.floor_stand = True
-            body_values.floor_click = False
 
 
-        else:
-            body_values.floor_click = True
-            body_values.floor_stand = False
+        elif body_values.last_press=="Right":
+            if (((body_values.xxx_axisvalue > 120+10 and body_values.xxx_axisvalue < 350) or
+                 (body_values.xxx_axisvalue > 710 and body_values.xxx_axisvalue < (710 + 250)))
+                    and (body_values.yyy_axisvalue == (470 - 120))):
+                body_values.floor_stand = True
+                body_values.floor_click = False
+
+            else:
+                body_values.floor_click = True
+                body_values.floor_stand = False
 
 
 
     def up_floorChecking(self):
+
+
         if (((body_values.xxx_axisvalue > 120+10 and body_values.xxx_axisvalue < 330) or
-             (body_values.xxx_axisvalue > 730 and body_values.xxx_axisvalue < (750 + (230-30))))
+            (body_values.xxx_axisvalue > 730 and body_values.xxx_axisvalue < (750 + (230-30))))
                 and (body_values.yyy_axisvalue == (470 - 120+40))):
             return True
 
@@ -185,13 +197,35 @@ class body:
 
 
 
+    def conditions_of_coins(self,value = 0,increase_length_cointaken = 0 ):
+        if (((body_values.xxx_axisvalue > 120 + 10 and body_values.xxx_axisvalue < 330)) and body_values.yyy_axisvalue == 270):
+            body_values.tile1_coins = (body_values.tile1_coins[
+                (body_values.tile1_coins >= body_values.xxx_axisvalue + value) ^ (
+                            body_values.tile1_coins < body_values.xxx_axisvalue + increase_length_cointaken)])
+
+
+        elif (body_values.xxx_axisvalue > 730 + 10 and body_values.xxx_axisvalue < (
+                750 + (230 - 50)) and body_values.yyy_axisvalue == 270):
+            body_values.tile2_coins = (body_values.tile2_coins[
+                (body_values.tile2_coins >= body_values.xxx_axisvalue + value) ^ (
+                        body_values.tile2_coins < body_values.xxx_axisvalue + increase_length_cointaken)])
+
+
     def coins_remover(self):
 
-        if (((body_values.xxx_axisvalue > 120 + 10 and body_values.xxx_axisvalue < 330) or
-          (bod
-                  y_values.xxx_axisvalue > 730 + 10 and body_values.xxx_axisvalue < (750 + (230 - 50)))) and body_values.yyy_axisvalue==270):
-            body_values.tile1_coins = (body_values.tile1coin_remover_array[body_values.tile1coin_remover_array>body_values.xxx_axisvalue])
-            print(body_values.tile1_coins,body_values.xxx_axisvalue,body_values.yyy_axisvalue)
+        print(body_values.last_press)
+
+        if body_values.last_press=='Left':
+            mainplayer_body.conditions_of_coins(value = 30,increase_length_cointaken=110)
+
+        else:
+            mainplayer_body.conditions_of_coins(increase_length_cointaken=80)
+
+
+
+
+
+
 
 
 class attack_group(pygame.sprite.Sprite):

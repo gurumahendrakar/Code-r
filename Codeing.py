@@ -3930,26 +3930,22 @@
 # print(hexa)
 # print(bytes.fromhex(hexa))
 #
-#
-import itertools
-import sys
+
+import asyncio,time
+
+async  def tool():
+    await "Guru"
+
+
+async def say_hello():
+    awit tool()
+
+def fun():
+    print("how__")
 
 
 
-def be_one():
 
-    for _ in range(8):
-        print(_)
+asyncio.run(say_hello())
 
-
-be_one = be_one()
-
-def be_two():
-
-    for _ in be_one:
-        print(_)
-        
-so   = be_two
-
-
-print(so())
+fun()
