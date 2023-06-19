@@ -3,7 +3,7 @@
 
 import types
 
-a = types.MethodType(function,valueyougive) # return boundmethod class __main__ method
+# a = types.MethodType(function,valueyougive) # return boundmethod class __main__ method
 class method:
 
 
@@ -21,8 +21,8 @@ class method:
                 cdict[key] = types.MethodType(value,cls)
 
         cls.__init__.__dict__.update(cdict)
-        print(cdict)
-        return cls.__init__
+
+        return type('method2',(),(cls.__dict__['__init__'].__dict__))
 
 
     def __setattr__(self, key, value):
@@ -39,6 +39,5 @@ class method2(metaclass=method):
         print("Hey Bro U Like This",a+b)
 
 
-u = method2('guru')
-print(u.__str__())
-print(u.you(2,3))
+
+print(method2.you(3,2))

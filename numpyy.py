@@ -845,11 +845,27 @@ name index colums is_unique shape keys
 # two_d_slice = two_d[[0,1,2,3],[[0,1,2,3]]] = np.arange(1000,5000,1000)
 # print(two_d)
 
+#
+# np.arange(200,200+30*6,step=30))
+# tile_2_coins = (
+# tile1_coins = (np.arange(800,800+30*6,step = 30 ))
+#
+# print(tile1_coins)
+#
+# delete_coins = (tile1_coins[(tile1_coins>230) ^ (tile1_coins<320)])
+# print(delete_coins)
 
 
-tile1_coins = (np.arange(200,200+30*6,step=30))
-tile_2_coins = (np.arange(800,800+30*6,step = 30 ))
+
+# print(np.logical_and(tile1_coins>250 ,tile1_coins<350))
 
 
 
-print(tile_2_coins)
+# se = np.arange(0,12).reshape(2,2,3)
+#
+# print(se)
+# print('original ------------------------------------------------------------')
+#
+#
+# print(np.append(se,[[[6,7,8],[9,10,11]]],axis=0))
+#

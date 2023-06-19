@@ -191,10 +191,6 @@ class player:
            object.coins+= sum(coins22)
 
 
-
-
-
-
         
 playeer = player()
 

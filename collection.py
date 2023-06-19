@@ -1,9 +1,4 @@
-import collections
-<<<<<<< HEAD
-import functools
-import sys
-=======
->>>>>>> 36d4c510ec930594b4677a1cc42194afa02bdbcd
+
 
 # #collections.namedtuple...
 # #___________________________________________________________________________________________________________________
@@ -14,7 +9,7 @@ import sys
 # Point = collections.namedtuple("Point",["x","y","z"])
 # b = Point(*x,3) #indexing also works    #0   1   2
 # print("x",b[0])
-<<<<<<< HEAD
+
 #
 # print(b._asdict()) # converted dictonary
 # # ouput :-> {'x': 1, 'y': 2, 'z': 3}
@@ -179,11 +174,9 @@ indexing_chainmap = chain_map.maps
 # print(a.most_common()) # output -> [('b', 4), ('a', 3), ('c', 3)]
 
 
-<<<<<<< HEAD
+
 #print(counterDict-CounterDict)
 
-=======
->>>>>>> 36d4c510ec930594b4677a1cc42194afa02bdbcd
 # print(a.subtract({"a":1})) # orginal value me isme ka a ka value minus hoga orignal me 
 # # ye sirf int pe work karta hai
 
@@ -191,7 +184,7 @@ indexing_chainmap = chain_map.maps
 
 
 #..........................defaultdict.........................................................
-<<<<<<< HEAD
+
 #
 #
 # defaultdictt = collections.defaultdict(list)
@@ -200,16 +193,15 @@ indexing_chainmap = chain_map.maps
 #after........
 # print(defaultdictt) :-> ---->  <class 'list'>, {'u': []} 
 # listes = [("Guru", "Mahendrakar"),("Nitin" ,"Mahendrakar"),("Gulle", "Biradar"),("Ketan","Biradar"),("shubham","kshirsagar")]
-=======
 
 
-defaultdictt = collections.defaultdict(list)
+# defaultdictt = collections.defaultdict(list)
  #defaultdict(<class 'list'>, {}) ye
 print(defaultdictt['u'])
 #after........
 # print(defaultdictt) :-> ---->  <class 'list'>, {'u': []} 
-listes = [("Guru", "Mahendrakar"),("Nitin" ,"Mahendrakar"),("Gulle", "Biradar"),("Ketan","Biradar"),("shubham","kshirsagar")]
->>>>>>> 36d4c510ec930594b4677a1cc42194afa02bdbcd
+# listes = [("Guru", "Mahendrakar"),("Nitin" ,"Mahendrakar"),("Gulle", "Biradar"),("shubham","kshirsagar")]
+
 
 # for (name,sirname) in listes:
 #     defaultdictt[sirname.strip()].append(name)
