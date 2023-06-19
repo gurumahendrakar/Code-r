@@ -189,22 +189,26 @@
 #
 #
 #
-import pandas as pd
-import requests,bs4,pprint
+# import pandas as pd
+# import requests,bs4,pprint
+#
+# api = 'https://www.imdb.com/list/ls576754431/'
+#
+# request = requests.get(api)
+# soup_ = bs4.BeautifulSoup(request.text,'html.parser')
+#
+# io = (soup_.find_all('div',{'class':"lister list detail sub-list"}))[0].findAll('div',{'class':'lister-item mode-detail'})
 
-api = 'https://www.imdb.com/list/ls576754431/'
+# movies = []
+# ratings = []
+# for ioo in range(len(io)):
+#     movies.append(io[ioo].find('a').find('img').get('alt'))
+#     ratings.append('-'.join(io[ioo].find('span',class_='genre').text.strip().split(',')))
+#
+# dataf = pd.DataFrame(index=movies,data=ratings)
+#
+# print(dataf)
 
-request = requests.get(api)
-soup_ = bs4.BeautifulSoup(request.text,'html.parser')
+# print(soup_.find('div',attrs={'id':'nblogin'}))
 
-io = (soup_.find_all('div',{'class':"lister list detail sub-list"}))[0].findAll('div',{'class':'lister-item mode-detail'})
 
-movies = []
-ratings = []
-for ioo in range(len(io)):
-    movies.append(io[ioo].find('a').find('img').get('alt'))
-    ratings.append('-'.join(io[ioo].find('span',class_='genre').text.strip().split(',')))
-
-dataf = pd.DataFrame(index=movies,data=ratings)
-
-print(dataf)

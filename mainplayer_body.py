@@ -1,4 +1,4 @@
-import glob
+import glob,re
 import numpy as np
 import pygame
 pygame.font.init()
@@ -21,6 +21,9 @@ class body_values:
 
 
         self.Running_movevalue = 0
+        self.attack_movevalue = 0
+
+
         self.jumped = False
         self.downed = False
 
@@ -42,12 +45,15 @@ class body_values:
         self.tile1_coins = (np.arange(200, 200 + 30 * 7, step=30))
         self.tile2_coins = (np.arange(800, 800 + 30 * 7, step=30))
 
+        self.downing_attack_count = False
 
-        self.tile1coin_remover_array = self.tile1_coins-60
-        self.tile2coin_remover_array = self.tile2_coins-60
+        self.fire_on = False
+        self.fire_value = 0
+        self.fire_list = []
 
 
-
+        self.enemy_movevalue = 0
+        self.enemy_positiongoing = "Right"
 
 
 
@@ -57,7 +63,7 @@ class body_values:
 class images:
 
     def __init__(self):
-        self.background = pygame.image.load('S:/Mage/game_background.jpg')
+        self.background = pygame.image.load(r"S:/Mage/game_background.jpg")
 
         self.rrun = glob.glob("S:/Mage/Run/*.png")
         self.lrun = glob.glob("S:/Mage/Leftrun/*.png")
@@ -69,10 +75,26 @@ class images:
         self.rstander = pygame.image.load("S:\Mage\Walk\walk6.png")
         self.lstander = pygame.image.load("S:\Mage\Walk\leftwalk.png")
 
-
+        self.lattack =  glob.glob('S:\Mage\Leftattack\*.png')
         self.rattack = glob.glob('S:/Mage/Attack/*.png')
 
         self.coin_image = pygame.image.load("S:/Mage/coin.png")
+
+
+
+        self.fire = pygame.image.load('S:/Mage/Fire/fire2.png')
+
+
+        self.small_tile = pygame.image.load('S:/Mage/tile.png')
+        self.bigtile = pygame.image.load('S:/Mage/tilee.png')
+
+
+
+        self.lenemy_run = glob.glob('S:\Mage\enemy_leftwalking\*.png')
+        self.renemy_run = glob.glob('S:/Mage/enemywalking/Walking/*.png')
+
+
+
 
 class body:
 
@@ -141,8 +163,11 @@ class body:
         mainplayer_body.display_background(main_window)
 
 
-        if body_values.last_press=="Left":
-            main_window.blit(images.lstander,(body_values.xxx_axisvalue,body_values.yyy_axisvalue))
+        if body_values.last_press=="Left" and body_values.floor_stand:
+            main_window.blit(images.lstander,(body_values.xxx_axisvalue-20,body_values.yyy_axisvalue))
+
+        elif body_values.last_press=="Left":
+            main_window.blit(images.lstander, (body_values.xxx_axisvalue, body_values.yyy_axisvalue))
 
 
         elif body_values.last_press=="Right":
@@ -153,23 +178,53 @@ class body:
     def floor_standing(self):
 
         if body_values.last_press=="Left":
-            if (((body_values.xxx_axisvalue>120+10 and body_values.xxx_axisvalue<310) or
-                 (body_values.xxx_axisvalue>710 and body_values.xxx_axisvalue<(710+200)))
-                    and (body_values.yyy_axisvalue==(470-120))):
+
+            # bigtile standing comparision check
+            if (((body_values.xxx_axisvalue>100 and body_values.xxx_axisvalue<330) or
+                 (body_values.xxx_axisvalue>700 and body_values.xxx_axisvalue<(710+200)))
+                    and (body_values.yyy_axisvalue==(470-120))) \
+                    \
+                    \
+                    or (body_values.xxx_axisvalue >450-80  and body_values.xxx_axisvalue < 440) \
+                    and body_values.yyy_axisvalue == 270-120 or\
+                    \
+                    \
+                    ((body_values.xxx_axisvalue>550-80 and body_values.xxx_axisvalue<540) and body_values.yyy_axisvalue==170-120) :
+
+
                 body_values.floor_stand = True
                 body_values.floor_click = False
+                body_values.attack_clicked = False
+
+
             else:
+
                 body_values.floor_click = True
                 body_values.floor_stand = False
 
 
 
         elif body_values.last_press=="Right":
-            if (((body_values.xxx_axisvalue > 120+10 and body_values.xxx_axisvalue < 350) or
-                 (body_values.xxx_axisvalue > 710 and body_values.xxx_axisvalue < (710 + 250)))
-                    and (body_values.yyy_axisvalue == (470 - 120))):
+
+
+            if (((body_values.xxx_axisvalue > (120+20) and body_values.xxx_axisvalue < 360) or
+                 (body_values.xxx_axisvalue > 740 and body_values.xxx_axisvalue < (710 + 260)))
+                    and (body_values.yyy_axisvalue == (470 - 120))) \
+                    \
+                    \
+                    or (body_values.xxx_axisvalue >450-50  and body_values.xxx_axisvalue < 450)\
+                    and body_values.yyy_axisvalue == 270-120 or \
+                    \
+                    \
+                    (body_values.xxx_axisvalue>500 and body_values.xxx_axisvalue<550) and body_values.yyy_axisvalue==170-120:
+
+
                 body_values.floor_stand = True
                 body_values.floor_click = False
+                body_values.attack_clicked = False
+
+
+
 
             else:
                 body_values.floor_click = True
@@ -179,52 +234,94 @@ class body:
 
     def up_floorChecking(self):
 
+        if body_values.last_press == "Left":
 
-        if (((body_values.xxx_axisvalue > 120+10 and body_values.xxx_axisvalue < 330) or
-            (body_values.xxx_axisvalue > 730 and body_values.xxx_axisvalue < (750 + (230-30))))
-                and (body_values.yyy_axisvalue == (470 - 120+40))):
-            return True
+            if (((body_values.xxx_axisvalue > 100 and body_values.xxx_axisvalue < 330) or
+                (body_values.xxx_axisvalue > 700 and body_values.xxx_axisvalue < (710+220)))
+                    and (body_values.yyy_axisvalue == (470 - 120+40))):
+                return True
+
+        elif body_values.last_press == "Right":
+
+            if (((body_values.xxx_axisvalue > 120 + 10 and body_values.xxx_axisvalue < 360) or
+                 (body_values.xxx_axisvalue > 740 and body_values.xxx_axisvalue < (710+250)))
+                    and (body_values.yyy_axisvalue == (470 - 120 + 40))):
+                return True
 
         return False
 
 
-    def tile(self,main_window,start,end):
-        main_window.blit(pygame.image.load(r"S:/Mage/tilee.png"),
-                          (start,end))
+
+    def small_tiles(self,main_window,x_position,y_position):
+        main_window.blit(images.small_tile, (x_position, y_position))
+
+
+
+
+    def tile(self,main_window,x_position,y_position):
+        main_window.blit(images.bigtile,
+                          (x_position,y_position))
 
     def ground(self,main_window):
         main_window.blit(pygame.image.load(r'S:/Mage/bigtile.png'),(0,680))
 
+    def coins(self,main_window):
+        for _ in body_values.tile1_coins:
+            main_window.blit(images.coin_image, (_, 270))
+
+        for _ in body_values.tile2_coins:
+            main_window.blit(images.coin_image, (_, 270))
 
 
     def conditions_of_coins(self,value = 0,increase_length_cointaken = 0 ):
-        if (((body_values.xxx_axisvalue > 120 + 10 and body_values.xxx_axisvalue < 330)) and body_values.yyy_axisvalue == 270):
+        if (((body_values.xxx_axisvalue > 100  and body_values.xxx_axisvalue < 350)) and body_values.yyy_axisvalue == 270-40):
+
+            length = len(body_values.tile1_coins)
+
             body_values.tile1_coins = (body_values.tile1_coins[
                 (body_values.tile1_coins >= body_values.xxx_axisvalue + value) ^ (
                             body_values.tile1_coins < body_values.xxx_axisvalue + increase_length_cointaken)])
 
+            body_values.coin_score+=  length - len(body_values.tile1_coins)
 
-        elif (body_values.xxx_axisvalue > 730 + 10 and body_values.xxx_axisvalue < (
-                750 + (230 - 50)) and body_values.yyy_axisvalue == 270):
+
+        elif (body_values.xxx_axisvalue > 710 and body_values.xxx_axisvalue < (
+                750 + (230 - 30)) and body_values.yyy_axisvalue == 270-40):
+            length = len(body_values.tile2_coins)
+
             body_values.tile2_coins = (body_values.tile2_coins[
                 (body_values.tile2_coins >= body_values.xxx_axisvalue + value) ^ (
                         body_values.tile2_coins < body_values.xxx_axisvalue + increase_length_cointaken)])
 
+            body_values.coin_score += length - len(body_values.tile2_coins)
+
 
     def coins_remover(self):
 
-        print(body_values.last_press)
-
         if body_values.last_press=='Left':
-            mainplayer_body.conditions_of_coins(value = 30,increase_length_cointaken=110)
+            mainplayer_body.conditions_of_coins(value = 20,increase_length_cointaken=110)
 
         else:
             mainplayer_body.conditions_of_coins(increase_length_cointaken=80)
 
 
 
+    def fire(self,main_window):
+
+        for index,list in enumerate(body_values.fire_list):
+
+            if list[2]=='Left':
+                main_window.blit(images.fire, (list[0]-20, list[1]))
+                body_values.fire_list[index] = (list[0] - 10, list[1], list[2])
+                if not list[0] > 0:
+                    body_values.fire_list.remove((list[0] - 10, list[1], list[2]))
 
 
+            elif list[2]=="Right":
+                main_window.blit(images.fire, (list[0] - 20, list[1]))
+                body_values.fire_list[index] = (list[0] + 10, list[1],list[2])
+                if not list[0] < 1200:
+                    body_values.fire_list.remove((list[0] + 10, list[1],list[2]))
 
 
 
@@ -232,7 +329,7 @@ class attack_group(pygame.sprite.Sprite):
 
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load(r'S:/Mage/Run/run1.png')
+        self.image = pygame.image.load(images.rattack[4])
         self.rect = self.image.get_rect()
         self.rect.topleft = [body_values.xxx_axisvalue,body_values.yyy_axisvalue]
 
@@ -241,12 +338,58 @@ class attack_group(pygame.sprite.Sprite):
         self.attack_value = 0
 
     def update(self):
-        self.image = pygame.image.load(images.rattack[self.attack_value])
 
-        self.attack_value+=1
-        if (len(images.rattack)-1<self.attack_value):
-            self.attack_value  = 0
+        if body_values.last_press=="Left":
 
+            self.image = pygame.image.load(images.lattack[4])
+
+        elif body_values.last_press=="Right":
+            self.image = pygame.image.load(images.rattack[4])
+
+
+
+
+
+
+class enemy_sprite(pygame.sprite.Sprite):
+
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.image.load(images.renemy_run[body_values.enemy_movevalue])
+        self.rect  = self.image.get_rect()
+        self.rect.x = 1012-70
+        self.rect.y = 200-67
+
+
+    def update(self,main_window):
+
+        if (len(images.renemy_run)-1) < body_values.enemy_movevalue:
+            body_values.enemy_movevalue = 0
+
+
+        else:
+            if body_values.enemy_positiongoing == "Left":
+                self.image = pygame.image.load(images.lenemy_run[body_values.enemy_movevalue])
+
+
+            elif body_values.enemy_positiongoing == "Right":
+                self.image = pygame.image.load(images.renemy_run[body_values.enemy_movevalue])
+
+
+            enemy.empty()
+            enemy.add(enemy_group)
+            body_values.enemy_movevalue += 1
+
+
+            if body_values.enemy_positiongoing=='Right':
+                enemy_group.rect.x+=2
+                if enemy_group.rect.x>1130:
+                    body_values.enemy_positiongoing =  "Left"
+
+            else:
+                if enemy_group.rect.x<1012-60:
+                    body_values.enemy_positiongoing = "Right"
+                enemy_group.rect.x-=2
 
 
 
@@ -258,5 +401,11 @@ body_values = body_values()
 images = images()
 
 attack_group = attack_group()
+enemy_group = enemy_sprite()
+
 attack = pygame.sprite.Group()
+enemy =  pygame.sprite.Group()
+
 attack.add(attack_group)
+enemy.add(enemy_group)
+

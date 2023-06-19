@@ -97,24 +97,25 @@ import re  #
 
 #================================================================================
 #
-# import re
+import re
 #
 #
-#
-# number = "3333-3333-3333 helloworldhelloworld"
-#
-# pattern = (re.compile('(\w{4})-(\w{4})-(\w{4})'))
-#
-#
-# # io = (re.search(pattern=pattern,string=number))
-# # print(io.group(1))
-#
-#
-#
-# a = re.sub(pattern='helloworld',repl='likeit',string=number)
-#
-# aa = re.split(pattern="helloworld",string=number,maxsplit=2)
-# print(aa)
+
+number = "3333-3333-3333 helloworld helloworld"
+
+pattern = (re.compile('(\w{4})-(\w{4})-(\w{4})'))
+
+
+# io = (re.search(pattern=pattern,string=number))
+# print(io.group(1))
+
+
+
+a = re.sub(pattern='helloworld',repl='likeit',string=number)
+
+aa = re.split(pattern="helloworld",string=number,maxsplit=2)
+print(a)
+print(aa)
 
 
 

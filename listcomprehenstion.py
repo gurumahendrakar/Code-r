@@ -34,11 +34,6 @@
 #
 # list_comprehenstion = [i for  i in range(8)]
 
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
->>>>>>> 36d4c510ec930594b4677a1cc42194afa02bdbcd
 
 # a = []
 
@@ -89,27 +84,8 @@ fun(2,two=2,three=3,four=3)
 
 #----------------------------------------------------------------------------------------------------------
 
-import tkinter
-
-window = tkinter.Tk()
-
-
-
-menu = tkinter.Menu(window)
-menu2 = tkinter.Menu(menu)
-
-menu.add_command(label='hlo brother')
-menu.add_cascade(label='File',menu=menu2)
-menu.add_separator()
-menu2.add_command(label='C Drive')
-
-
-window.config(menu=menu)
-
-window.mainloop()
 
 
 
 
-=======
->>>>>>> a61a249b50f3ad60a15e2e96bd630d1606ad1418
+

@@ -3931,21 +3931,398 @@
 # print(bytes.fromhex(hexa))
 #
 
-import asyncio,time
+# import asyncio,time
+#
+# async  def tool():
+#     await "Guru"
+#
+#
+# async def say_hello():
+#     awit tool()
+#
+# def fun():
+#     print("how__")
+#
+#
+#
+#
+# asyncio.run(say_hello())
 
-async  def tool():
-    await "Guru"
+# fun()
 
 
-async def say_hello():
-    awit tool()
+#
+#
+# string = "Guru \t Mahendrakar {name:*>15} {number} "
+#
+# print(string.upper())
+# print(string.lower())
+# print(string.capitalize())
+# print(string.swapcase())
+# print(string.casefold())
+# print(string.expandtabs(20))
+# # print(string.format(name = "suck"))
+# print(string.zfill(100))
+# print(string.find('c',3))
+# print(string.index('r',3))
+# print(string.count('r',0,-1))
+# # print(string.format_map({'name':"Guru","Sill":"Pill"}))
+# print(string.format(**{'name':"Guru",'number':2.253535335}))
+# # print(hex(int(255)))
+#
 
-def fun():
-    print("how__")
+#
+# number = 953
+# print(f'{number:o} {number:b}')
+# print(f'{number:b}')
 
 
 
 
-asyncio.run(say_hello())
 
-fun()
+# dict = {"Name":"Guru","Sirname":"Mahendrakar"}
+
+#
+# print(dict.values())
+# print(dict.keys())
+# print(dict.items())
+# (dict.update({"Rollno":29}))
+
+# print(dict.fromkeys(['1','2','3'],3))
+# print(dict.setdefault())
+
+
+# print(dict.setdefault(['Guru','one']))
+
+
+# print()
+#
+# try:
+#     a = int('a')
+#
+# except Exception as e:
+#     print(e)
+
+
+
+
+# print([ 'guru' if x==1 else "Gu
+#
+#ru" if x==1 else -2  for x in range(5)])
+
+
+# square = lambda x: "Guru" if x==1 else "this__2" if x==2 else -2
+
+# print(square(3))
+
+# from functools import wraps
+#
+#
+# def function(function):
+#
+#     def sex(function):
+#         @wraps(function)
+#         def so():
+#             """Love You Brother"""
+#             print(function)
+#
+#         return so
+#
+#
+#     return sex
+#
+# @function('one')
+# def function2():
+#     "function 2 documentation "
+#     print("love")
+#
+#
+# print(function2.__name__)
+# print(function2.__doc__)
+
+
+
+# for index,io in enumerate([1,2,3,4,5]):
+#     print(index,io)
+
+
+
+
+# class MyError(Exception):
+#     pass
+#
+#
+#
+#
+# try:
+#     a = int('a')
+#
+# except Exception as e:
+#     raise MyError("Thats My Error")
+#
+
+
+
+
+
+
+
+
+#
+# # define Python user-defined exceptions
+# class InvalidAgeException(Exception):
+#     "Raised when the input value is less than 18"
+#     pass
+#
+#
+# # you need to guess this number
+# number = 18
+#
+# try:
+#     input_num = int(input("Enter a number: "))
+#     if input_num < number:
+#         raise InvalidAgeException
+#     else:
+#         print("Eligible to Vote")
+#
+# except InvalidAgeException:
+#     print("Exception occurred: Invalid Age")
+
+
+
+# print(list(map(lambda  x: x if x==2 else False,[1,2,3,4,5,6])))
+
+
+
+
+# print(list(filter(lambda  x : x if x==2 else False  ,[1,2,3,4,5])))
+
+
+
+import random
+import sys
+
+# print(random.choice([1,2,3,4,5]))
+# print(random.randint(0,8))
+# print(random.randrange(0,8))
+# print(random.sample([1,2,3,4,5],3))
+# print(random.uniform(0,8))
+
+
+
+# print(sys.argv)
+
+import collections as coll
+
+
+# dequee = (coll.deque([x for x in range(64)]))
+#
+# print(dequee.pop())
+# print(dequee.popleft())
+# print(dequee.__sizeof__())
+
+
+#
+# print(coll.OrderedDict([(1,2),(3,4)]).popitem())
+
+
+# so = (coll.defaultdict(list))
+#
+# so['u'].append('love you')
+#
+# print(so)
+
+
+import itertools as iterr
+from pprint import pprint as printt
+# for x in iterr.chain([1,2,3]):
+#     print(x)
+# print(list(iterr.dropwhile(lambda  xx:xx<2,[1,2,3])))
+
+# printt(list(iterr.tee([1,2,3,4,5,6,7,8,9,10])))
+#
+# for x in (iterr.tee([1,2,3,4,5,6,7,8,9,10])):
+#     print(x.__next__(),x.__next__(),x.__next__())
+
+
+# print(list(iterr.pairwise([1,2,3,4,5])))
+
+# for x in ((iterr.compress([1,2,4,5,6,7],[1,2,3,4,5]))):
+#     print(x)
+
+
+
+
+# print(list(iterr.product([1,2,3,4,5],[1,2,3,4,5])))
+
+#
+# for x in (iterr.repeat([1,2,3,4,5])):
+#     print(x)
+
+
+# print(list(iterr.takewhile(lambda  x: x<4,[1,2,3,4,5])))
+
+#
+#
+#
+#
+#
+#
+#
+
+class myclass:
+
+    def __init__(self):
+        self.name = "Guru"
+
+        # myclass.__dict__.get('__init__')
+        print(myclass.__dict__.__init__)
+
+
+    @staticmethod
+
+    def so():
+        return ("Loved Brother")
+
+    @classmethod
+    def sooo(self):
+        print("Loved",self)
+
+    @property
+    def tool(self):
+        return "Cooking LIfe"
+
+
+    def __no(self):
+        print('suck')
+
+
+    def __getitem__(self, item):
+        class NotFound(Exception):
+            pass
+
+        try:
+            return self.__dict__[item]
+        except:
+            raise NotFound("Your Key Is not Found ")
+
+
+
+    def __setitem__(self, key, value):
+        self.__dict__[key] = value
+
+
+
+    def __getattr__(self, item):
+        return "not found in your class this method or instance"
+
+
+
+
+    def __enter__(self):
+        self.open = open('texting.txt','w')
+        return self.open
+
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.open.close()
+        return "Succusfully Closed File"
+
+
+    def __iter__(self):
+        return self
+
+
+    def __next__(self):
+        pass
+
+
+
+my = myclass()
+
+
+
+# class myclass2():
+#     def __init__(self):
+#         super().__init__()
+#         self.name = "Guru"
+#
+#     def no(self):
+#         pass
+#
+# my2 = myclass2()
+# print(my2.no,'love')
+
+
+# import datetime as dt
+
+
+# print(dt.datetime.now().isoweekday())
+#
+# my_born = (dt.datetime.now()  - dt.datetime(year=2002,month=7,day=25))
+#
+# print(my_born.total_seconds()/7616,my_born)
+
+
+
+
+
+import numpy as np
+
+
+normal = np.arange(0,8,dtype=np.int64).reshape(2,4)
+array_4d  = np.arange(0,20).reshape(2,1,2,5)
+array_3d = np.arange(0,12).reshape(2,2,3)
+# # print(np.fill_diagonal(array,3))
+#
+#
+# print(array_3d)
+# array_submiting = [
+#                    [6,7,8],
+#                    [8,2,5],
+#
+#                    ]
+#
+#
+# print('-----------')
+# print(np.insert(array_3d,0,array_submiting,axis=1))
+
+
+
+#
+# print(array_4d.size)
+# print(array_4d.dtype)
+# print(normal.strides)
+# print(normal.itemsize)
+# print(normal.ndim)
+
+
+
+print(array_3d)
+array = [
+    [[10,11,12]],
+    [[13,14,15]]
+]
+print(np.concatenate([array_3d,1array],axis=1))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
