@@ -1,4 +1,4 @@
-import glob,re
+import glob,re,time
 import numpy as np
 import pygame
 pygame.font.init()
@@ -54,7 +54,9 @@ class body_values:
 
         self.enemy_movevalue = 0
         self.enemy_positiongoing = "Right"
-
+        self.move_enemy = True
+        self.move_time = False
+        self.enemy_dead = False
 
 
 
@@ -90,8 +92,8 @@ class images:
 
 
 
-        self.lenemy_run = glob.glob('S:\Mage\enemy_leftwalking\*.png')
-        self.renemy_run = glob.glob('S:/Mage/enemywalking/Walking/*.png')
+        self.lenemy_run = glob.glob('S:\Mage\leftenemy\*.png')
+        self.renemy_run = glob.glob('S:/Mage/enemy/*.png')
 
 
 
@@ -181,15 +183,16 @@ class body:
 
             # bigtile standing comparision check
             if (((body_values.xxx_axisvalue>100 and body_values.xxx_axisvalue<330) or
-                 (body_values.xxx_axisvalue>700 and body_values.xxx_axisvalue<(710+200)))
+                 (body_values.xxx_axisvalue>700 and body_values.xxx_axisvalue<(710+200))) # big 2 tiles
                     and (body_values.yyy_axisvalue==(470-120))) \
                     \
                     \
-                    or (body_values.xxx_axisvalue >450-80  and body_values.xxx_axisvalue < 440) \
-                    and body_values.yyy_axisvalue == 270-120 or\
+                    or (body_values.xxx_axisvalue >450-80  and body_values.xxx_axisvalue < 440) and body_values.yyy_axisvalue == 270-120 \
+                                                    or\
                     \
-                    \
-                    ((body_values.xxx_axisvalue>550-80 and body_values.xxx_axisvalue<540) and body_values.yyy_axisvalue==170-120) :
+                    ((body_values.xxx_axisvalue>550-80 and body_values.xxx_axisvalue<540) and body_values.yyy_axisvalue==170-120) \
+                                                    or \
+                    (body_values.xxx_axisvalue>(1012-100) and body_values.xxx_axisvalue<(1012+200)) and body_values.yyy_axisvalue==90:
 
 
                 body_values.floor_stand = True
@@ -216,7 +219,11 @@ class body:
                     and body_values.yyy_axisvalue == 270-120 or \
                     \
                     \
-                    (body_values.xxx_axisvalue>500 and body_values.xxx_axisvalue<550) and body_values.yyy_axisvalue==170-120:
+                    (body_values.xxx_axisvalue>500 and body_values.xxx_axisvalue<550) and body_values.yyy_axisvalue==170-120\
+                                                        or \
+ \
+                    (body_values.xxx_axisvalue > (1012 - 60) and body_values.xxx_axisvalue < (
+                            1012 + 220)) and body_values.yyy_axisvalue == 190-100:
 
 
                 body_values.floor_stand = True
@@ -305,10 +312,36 @@ class body:
             mainplayer_body.conditions_of_coins(increase_length_cointaken=80)
 
 
+    def enemy_deadlogic(self,position):
+        if not body_values.enemy_dead:
+            if not position%2==0:
+                position-=5
+
+            if (enemy_group.rect.x==position):
+                print('true')
+
+            else:
+                print(enemy_group.rect.x,position,body_values.xxx_axisvalue)
+
+
+
+    def enemy_movingshowingoffing(self,main_window):
+        if (time.time() - body_values.move_time) > 0.056431356135131351354131354 and not body_values.enemy_dead:  # itne time enemy move nahi karega jaise hi
+                                                                                                                    # time bada hogaya old se phir se enemy move                                                                                            # chalta rahega
+            enemy.update(main_window)
+            body_values.move_time = time.time()
+
+
+        if (not body_values.enemy_dead):
+            enemy.draw(main_window)
+
 
     def fire(self,main_window):
 
         for index,list in enumerate(body_values.fire_list):
+            self.enemy_deadlogic(list[0])
+
+
 
             if list[2]=='Left':
                 main_window.blit(images.fire, (list[0]-20, list[1]))
@@ -318,10 +351,18 @@ class body:
 
 
             elif list[2]=="Right":
+
                 main_window.blit(images.fire, (list[0] - 20, list[1]))
                 body_values.fire_list[index] = (list[0] + 10, list[1],list[2])
                 if not list[0] < 1200:
                     body_values.fire_list.remove((list[0] + 10, list[1],list[2]))
+
+
+
+
+
+
+
 
 
 
@@ -351,13 +392,18 @@ class attack_group(pygame.sprite.Sprite):
 
 
 
+
+
+
+
+
 class enemy_sprite(pygame.sprite.Sprite):
 
     def __init__(self):
         super().__init__()
         self.image = pygame.image.load(images.renemy_run[body_values.enemy_movevalue])
         self.rect  = self.image.get_rect()
-        self.rect.x = 1012-70
+        self.rect.x = 1010-70
         self.rect.y = 200-67
 
 
@@ -376,20 +422,25 @@ class enemy_sprite(pygame.sprite.Sprite):
                 self.image = pygame.image.load(images.renemy_run[body_values.enemy_movevalue])
 
 
-            enemy.empty()
+
             enemy.add(enemy_group)
             body_values.enemy_movevalue += 1
 
 
-            if body_values.enemy_positiongoing=='Right':
-                enemy_group.rect.x+=2
-                if enemy_group.rect.x>1130:
-                    body_values.enemy_positiongoing =  "Left"
 
-            else:
-                if enemy_group.rect.x<1012-60:
+            if body_values.enemy_positiongoing=='Right':
+                enemy_group.rect.x+=10
+                if enemy_group.rect.x>1130:
+                    body_values.enemy_positiongoing = 'Left'
+
+
+            elif body_values.enemy_positiongoing=="Left":
+
+                if enemy_group.rect.x ==800:
                     body_values.enemy_positiongoing = "Right"
-                enemy_group.rect.x-=2
+
+                enemy_group.rect.x -=10
+
 
 
 
