@@ -85,7 +85,7 @@ class main_window(object):
 
             attack_group.rect.x,attack_group.rect.y = body_values.xxx_axisvalue,body_values.yyy_axisvalue
             body_values.attack_clicked = True
-            body_values.fire_list.append((body_values.xxx_axisvalue+70,body_values.yyy_axisvalue+65,body_values.last_press))
+            body_values.fire_list.append((body_values.xxx_axisvalue+70,body_values.yyy_axisvalue+60,body_values.last_press))
 
             timer.attack_timer = time.time()
             mainplayer_body.display_background(self.display)
@@ -168,11 +168,9 @@ class main_window(object):
                     pygame.quit()
                     exit()
 
-
-
-            self.display.blit(pygame.image.load('S:/Mage/enemy.png'),(500,400))
-            mainplayer_body.coins(self.display)
             mainplayer_body.fire(self.display)
+            mainplayer_body.enemy_movingshowingoffing(self.display)
+            mainplayer_body.coins(self.display)
             self.display.blit(images.coin_image,(1130,20)) #
             self.display.blit(body_values.font.render(str(body_values.coin_score),False,(255, 102, 0)),(1160,20))
             mainplayer_body.small_tiles(self.display,450,260)
