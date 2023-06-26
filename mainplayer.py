@@ -168,10 +168,12 @@ class main_window(object):
                     pygame.quit()
                     exit()
 
+
+
             mainplayer_body.fire(self.display)
             mainplayer_body.enemy_movingshowingoffing(self.display)
             mainplayer_body.coins(self.display)
-            self.display.blit(images.coin_image,(1130,20)) #
+            self.display.blit(images.coin_image,(1130,20))
             self.display.blit(body_values.font.render(str(body_values.coin_score),False,(255, 102, 0)),(1160,20))
             mainplayer_body.small_tiles(self.display,450,260)
             mainplayer_body.small_tiles(self.display, 550, 160)

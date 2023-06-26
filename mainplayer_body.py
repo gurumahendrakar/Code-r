@@ -313,28 +313,27 @@ class body:
 
 
     def enemy_deadlogic(self,position):
-        if not body_values.enemy_dead:
-            if not position%2==0:
-                position-=5
-
-            if (enemy_group.rect.x==position):
-                print('true')
-
-            else:
-                print(enemy_group.rect.x,position,body_values.xxx_axisvalue)
+        if enemy_group.rect.x == ( position if position%2==0 else position-5):
+            enemy.empty()
+            body_values.enemy_dead = True
+            body_values.move_time = time.time()
 
 
 
     def enemy_movingshowingoffing(self,main_window):
-        if (time.time() - body_values.move_time) > 0.056431356135131351354131354 and not body_values.enemy_dead:  # itne time enemy move nahi karega jaise hi
-                                                                                                                    # time bada hogaya old se phir se enemy move                                                                                            # chalta rahega
-            enemy.update(main_window)
-            body_values.move_time = time.time()
 
 
-        if (not body_values.enemy_dead):
-            enemy.draw(main_window)
+        if not body_values.enemy_dead:
+            if (time.time() - body_values.move_time) > 0.056431356135131351354131354 and not body_values.enemy_dead:  # itne time enemy move nahi karega jaise hi
+                body_values.move_time = time.time()                                                                                                        # time bada hogaya old se phir se enemy move                                                                                            # chalta rahega
+                enemy.update(main_window)
+                enemy.draw(main_window)
 
+
+
+        else:
+            if (time.time() - body_values.move_time) > 0.55555335353535:
+                main_window.blit(pygame.image.load("S:\Mage\Fire\deadeffec.png"), (enemy_group.rect.x, enemy_group.rect.y))
 
     def fire(self,main_window):
 
@@ -459,4 +458,29 @@ enemy =  pygame.sprite.Group()
 
 attack.add(attack_group)
 enemy.add(enemy_group)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
