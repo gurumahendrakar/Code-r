@@ -6,6 +6,7 @@ class main_window(object):
 
     def __init__(self,width:int ,height:int,title:str):
         self.display = pygame.display.set_mode((width,height))
+
         pygame.display.set_caption("RogueXWar")
         pygame.display.set_icon(pygame.image.load('S:/platform/Rogue/icon.png'))
 
@@ -170,16 +171,17 @@ class main_window(object):
 
 
 
+            mainplayer_body.tiles_recreating()
             mainplayer_body.fire(self.display)
-            mainplayer_body.enemy_movingshowingoffing(self.display)
+            mainplayer_body.dead_checking(self.display)
             mainplayer_body.coins(self.display)
             self.display.blit(images.coin_image,(1130,20))
-            self.display.blit(body_values.font.render(str(body_values.coin_score),False,(255, 102, 0)),(1160,20))
-            mainplayer_body.small_tiles(self.display,450,260)
-            mainplayer_body.small_tiles(self.display, 550, 160)
-            mainplayer_body.tile(self.display,200,570-110)
-            mainplayer_body.tile(self.display,800,570-110)
-            mainplayer_body.tile(self.display,1012,200)
+            self.display.blit(body_values.font.render(str(body_values.coin_score),False,(255, 102, 0)),( 1160,20))
+            mainplayer_body.small_tiles(self.display,body_values.smalltile1,260)
+            mainplayer_body.small_tiles(self.display,body_values.smiletile2, 160)
+            mainplayer_body.tile(self.display,body_values.tile1_x,570-110)
+            mainplayer_body.tile(self.display,body_values.tile2_x,570-110)
+            mainplayer_body.tile(self.display,body_values.tile3_x,200)
             mainplayer_body.ground(self.display)
             pygame.display.flip()
 
