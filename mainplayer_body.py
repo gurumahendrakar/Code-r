@@ -48,7 +48,6 @@ class body_values:
         self.downing_attack_count = False
 
         self.fire_on = False
-        self.fire_value = 0
         self.fire_list = []
 
 
@@ -57,6 +56,14 @@ class body_values:
         self.move_enemy = True
         self.move_time = False
         self.enemy_dead = False
+
+        self.smalltile1 = 450;
+        self.smiletile2 = 550;
+        self.tile1_x = 200;
+        self.tile2_x = 800;
+        self.tile3_x = 1012;
+
+        self.mehalfmovevalue = 0;
 
 
 
@@ -182,17 +189,17 @@ class body:
         if body_values.last_press=="Left":
 
             # bigtile standing comparision check
-            if (((body_values.xxx_axisvalue>100 and body_values.xxx_axisvalue<330) or
-                 (body_values.xxx_axisvalue>700 and body_values.xxx_axisvalue<(710+200))) # big 2 tiles
+            if (((body_values.xxx_axisvalue>100-body_values.mehalfmovevalue and body_values.xxx_axisvalue<330-body_values.mehalfmovevalue) or
+                 (body_values.xxx_axisvalue>700-body_values.mehalfmovevalue and body_values.xxx_axisvalue<(710+200)-body_values.mehalfmovevalue)) # big 2 tiles
                     and (body_values.yyy_axisvalue==(470-120))) \
                     \
                     \
-                    or (body_values.xxx_axisvalue >450-80  and body_values.xxx_axisvalue < 440) and body_values.yyy_axisvalue == 270-120 \
+                    or (body_values.xxx_axisvalue >(450-80)-body_values.mehalfmovevalue  and body_values.xxx_axisvalue < 440-body_values.mehalfmovevalue) and body_values.yyy_axisvalue == 270-120 \
                                                     or\
                     \
-                    ((body_values.xxx_axisvalue>550-80 and body_values.xxx_axisvalue<540) and body_values.yyy_axisvalue==170-120) \
+                    ((body_values.xxx_axisvalue>(550-80) - body_values.mehalfmovevalue and body_values.xxx_axisvalue<540-body_values.mehalfmovevalue) and body_values.yyy_axisvalue==170-120) \
                                                     or \
-                    (body_values.xxx_axisvalue>(1012-100) and body_values.xxx_axisvalue<(1012+200)) and body_values.yyy_axisvalue==90:
+                    (body_values.xxx_axisvalue>(1012-100) - body_values.mehalfmovevalue and body_values.xxx_axisvalue<(1012+200)-body_values.mehalfmovevalue) and body_values.yyy_axisvalue==90:
 
 
                 body_values.floor_stand = True
@@ -243,15 +250,15 @@ class body:
 
         if body_values.last_press == "Left":
 
-            if (((body_values.xxx_axisvalue > 100 and body_values.xxx_axisvalue < 330) or
-                (body_values.xxx_axisvalue > 700 and body_values.xxx_axisvalue < (710+220)))
+            if (((body_values.xxx_axisvalue > 100 - body_values.mehalfmovevalue and body_values.xxx_axisvalue < 330-body_values.mehalfmovevalue) or
+                (body_values.xxx_axisvalue > 700 - body_values.mehalfmovevalue and body_values.xxx_axisvalue < (710+220) - body_values.mehalfmovevalue))
                     and (body_values.yyy_axisvalue == (470 - 120+40))):
                 return True
 
         elif body_values.last_press == "Right":
 
-            if (((body_values.xxx_axisvalue > 120 + 10 and body_values.xxx_axisvalue < 360) or
-                 (body_values.xxx_axisvalue > 740 and body_values.xxx_axisvalue < (710+250)))
+            if (((body_values.xxx_axisvalue > ( 120 + 10 ) -  body_values.mehalfmovevalue and body_values.xxx_axisvalue  < 360 - body_values.mehalfmovevalue ) or
+                 (body_values.xxx_axisvalue > 740 - body_values.mehalfmovevalue and body_values.xxx_axisvalue < (710+250) - body_values.mehalfmovevalue))
                     and (body_values.yyy_axisvalue == (470 - 120 + 40))):
                 return True
 
@@ -313,27 +320,23 @@ class body:
 
 
     def enemy_deadlogic(self,position):
-        if not body_values.enemy_dead:
-            if not position%2==0:
-                position-=5
-
-            if (enemy_group.rect.x==position):
-                print('true')
-
-            else:
-                print(enemy_group.rect.x,position,body_values.xxx_axisvalue)
+        if (enemy_group.rect.x == ( position if position%2==0 else position-5)) and \
+                body_values.yyy_axisvalue>=50 and body_values.yyy_axisvalue<=200:
+            enemy.empty()
+            body_values.enemy_dead = True
+            body_values.move_time = time.time()
 
 
 
     def enemy_movingshowingoffing(self,main_window):
-        if (time.time() - body_values.move_time) > 0.056431356135131351354131354 and not body_values.enemy_dead:  # itne time enemy move nahi karega jaise hi
-                                                                                                                    # time bada hogaya old se phir se enemy move                                                                                            # chalta rahega
-            enemy.update(main_window)
-            body_values.move_time = time.time()
 
 
-        if (not body_values.enemy_dead):
+        if not body_values.enemy_dead:
+            if (time.time() - body_values.move_time) > 0.056431356135131351354131354 and not body_values.enemy_dead:  # itne time enemy move nahi karega jaise hi
+                body_values.move_time = time.time()                                                                                                        # time bada hogaya old se phir se enemy move                                                                                            # chalta rahega
+                enemy.update(main_window)
             enemy.draw(main_window)
+
 
 
     def fire(self,main_window):
@@ -345,9 +348,9 @@ class body:
 
             if list[2]=='Left':
                 main_window.blit(images.fire, (list[0]-20, list[1]))
-                body_values.fire_list[index] = (list[0] - 10, list[1], list[2])
+                body_values.fire_list[index] = (list[0] - 20, list[1], list[2])
                 if not list[0] > 0:
-                    body_values.fire_list.remove((list[0] - 10, list[1], list[2]))
+                    body_values.fire_list.remove((list[0] - 20, list[1], list[2]))
 
 
             elif list[2]=="Right":
@@ -359,9 +362,28 @@ class body:
 
 
 
+    def dead_checking(self,main_window):
+        if (not body_values.enemy_dead):
+            mainplayer_body.enemy_movingshowingoffing(main_window)
+
+        elif (time.time() - body_values.move_time) < 0.5:
+            main_window.blit(pygame.image.load("S:\Mage\gif_4.png"),
+                              (enemy_group.rect.x, enemy_group.rect.y))
 
 
 
+
+    def tiles_recreating(self):
+        if body_values.xxx_axisvalue>550:
+            if body_values.mehalfmovevalue<body_values.xxx_axisvalue-550:
+                body_values.mehalfmovevalue  = body_values.xxx_axisvalue - 550
+                body_values.smalltile1 = 450 - body_values.mehalfmovevalue;
+                body_values.smiletile2 = 550 - body_values.mehalfmovevalue;
+                body_values.tile1_x = 200 - body_values.mehalfmovevalue;
+                body_values.tile2_x = 800 - body_values.mehalfmovevalue;
+                body_values.tile3_x = 1012 - body_values.mehalfmovevalue;
+
+        print(body_values.mehalfmovevalue)
 
 
 
@@ -404,12 +426,12 @@ class enemy_sprite(pygame.sprite.Sprite):
         self.image = pygame.image.load(images.renemy_run[body_values.enemy_movevalue])
         self.rect  = self.image.get_rect()
         self.rect.x = 1010-70
-        self.rect.y = 200-67
+        self.rect.y = 200-50
 
 
     def update(self,main_window):
 
-        if (len(images.renemy_run)-1) < body_values.enemy_movevalue:
+        if (len(images.renemy_run)-2) < body_values.enemy_movevalue:
             body_values.enemy_movevalue = 0
 
 
@@ -422,7 +444,7 @@ class enemy_sprite(pygame.sprite.Sprite):
                 self.image = pygame.image.load(images.renemy_run[body_values.enemy_movevalue])
 
 
-
+            enemy.empty()
             enemy.add(enemy_group)
             body_values.enemy_movevalue += 1
 
@@ -430,13 +452,13 @@ class enemy_sprite(pygame.sprite.Sprite):
 
             if body_values.enemy_positiongoing=='Right':
                 enemy_group.rect.x+=10
-                if enemy_group.rect.x>1130:
+                if enemy_group.rect.x>1150:
                     body_values.enemy_positiongoing = 'Left'
 
 
             elif body_values.enemy_positiongoing=="Left":
 
-                if enemy_group.rect.x ==800:
+                if enemy_group.rect.x ==1130-130:
                     body_values.enemy_positiongoing = "Right"
 
                 enemy_group.rect.x -=10
@@ -457,6 +479,32 @@ enemy_group = enemy_sprite()
 attack = pygame.sprite.Group()
 enemy =  pygame.sprite.Group()
 
+
 attack.add(attack_group)
 enemy.add(enemy_group)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

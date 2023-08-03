@@ -198,7 +198,7 @@
 # soup_ = bs4.BeautifulSoup(request.text,'html.parser')
 #
 # io = (soup_.find_all('div',{'class':"lister list detail sub-list"}))[0].findAll('div',{'class':'lister-item mode-detail'})
-
+#
 # movies = []
 # ratings = []
 # for ioo in range(len(io)):
@@ -208,7 +208,22 @@
 # dataf = pd.DataFrame(index=movies,data=ratings)
 #
 # print(dataf)
-
+#
 # print(soup_.find('div',attrs={'id':'nblogin'}))
+#
+
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 
 
+options = webdriver.ChromeOptions()
+options.add_experimental_option('detach',True)
+
+
+driver = webdriver.Chrome(options=options)
+driver.get("http://www.gooogle.com")
+
+
+driver.find_element(by=By.CLASS_NAME,value='gLFyf').send_keys("facebook")
+driver.find_element(by= By.__class__)

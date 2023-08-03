@@ -42,14 +42,16 @@ import argparse
 #
 x = argparse.ArgumentParser(description="THIS ORDERING FOR FOOD")
 x.add_argument("ID",type=int) # POSITIONAL ARGUMENT ARGUMENT TO PAAS KARNA HI PADEGA
-x.add_argument('--FOOD',type=str,help="ENTER THE NAME OF FOOD",dest='food') # ARGUMENT PASS NAHI KAROGE TO BHI CHALEGA
+x.add_argument('--FOOD',type=str,help="ENTER THE NAME OF FOOD",dest='food')
 x.add_argument('--Cheese',help="CHEESE NAME ENTER",
                action='store_true',
                default="NO ORDERED",
                dest='cheese',
                ) # (DEST ARGUMENT)  --Cheese Ko KO NAYA NAAM RAKH SAKTE HAI
 
-x.add_argument('--friends',nargs="+") #jitna bhi argument de sakte ho
+
+# store action = store_true rakhane se sirf --Cheese ye wali se true ya false set hoga value nahi de sakte
+x.add_argument('--friends',nargs="+") #jitna bhi argument de sakte ho ek naam ke baad space dena padega
 
 
 print(x.parse_args())
